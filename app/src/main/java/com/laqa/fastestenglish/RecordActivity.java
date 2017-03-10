@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -27,6 +28,8 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        overridePendingTransition(R.anim.rightin, R.anim.leftout);
 
         recordListView=(ListView)findViewById(R.id.recordListView);
         recordButtonBack=(ImageButton)findViewById(R.id.recordButtonBack);
@@ -42,6 +45,7 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view.getId()==R.id.recordButtonBack){
             //Nhấn vào nút quay lại
+            onBackPressed();
         }
     }
 
@@ -50,8 +54,8 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
             case R.id.recordButtonBack:
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    recordButtonBack.animate().scaleX(recordButtonBack.getScaleX()+0.3f);
-                    recordButtonBack.animate().scaleY(recordButtonBack.getScaleY()+0.3f);
+                    recordButtonBack.animate().scaleX(1.2f);
+                    recordButtonBack.animate().scaleY(1.2f);
                 } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     recordButtonBack.animate().scaleX(1.0f);
                     recordButtonBack.animate().scaleY(1.0f);
@@ -103,5 +107,11 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
                 }
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.leftin, R.anim.rightout);
     }
 }

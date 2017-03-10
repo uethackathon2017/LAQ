@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
@@ -16,9 +17,14 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packs);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        overridePendingTransition(R.anim.rightin, R.anim.leftout);
 
         packsButtonBack=(ImageButton)findViewById(R.id.packsButtonBack);
         packsGridView=(GridView)findViewById(R.id.packsGridView);
+
+        packsButtonBack.setOnClickListener(this);
+        packsButtonBack.setOnTouchListener(this);
     }
 
     @Override
@@ -26,6 +32,7 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId()){
             case R.id.packsButtonBack:
                 //Quay lại
+                onBackPressed();
                 break;
         }
     }
@@ -44,5 +51,11 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.leftin, R.anim.rightout);
     }
 }

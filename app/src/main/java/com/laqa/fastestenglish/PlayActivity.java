@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        overridePendingTransition(R.anim.rightin, R.anim.leftout);
 
         relativeLayoutPlay=(RelativeLayout)findViewById(R.id.relativeLayoutPlay);
         playRelaytive1=(RelativeLayout)findViewById(R.id.playRelaytive1);
@@ -100,5 +103,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
             case R.id.playRelaytive4:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.leftin, R.anim.rightout);
     }
 }

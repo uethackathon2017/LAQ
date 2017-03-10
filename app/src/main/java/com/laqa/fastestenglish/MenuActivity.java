@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 public class MenuActivity extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener{
@@ -15,6 +16,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        overridePendingTransition(R.anim.topin, R.anim.bottomout);
 
         menuButtonPlay=(ImageButton)findViewById(R.id.menuButtonPlay);
         menuButtonPacks=(ImageButton)findViewById(R.id.menuButtonPacks);
@@ -64,10 +67,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
 
             case R.id.menuButtonPacks:
                 //Chuyen sang trang Packs
+                Intent intentPacks= new Intent(MenuActivity.this,PacksActivity.class);
+                startActivity(intentPacks);
                 break;
 
             case R.id.menuButtonRecord:
                 //Chuyen sang trang Record
+                Intent intentRecord= new Intent(MenuActivity.this,RecordActivity.class);
+                startActivity(intentRecord);
                 break;
 
             case R.id.menuButtonSetting:
