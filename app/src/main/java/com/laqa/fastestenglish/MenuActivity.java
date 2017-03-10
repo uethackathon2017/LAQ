@@ -10,11 +10,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 public class MenuActivity extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener{
 
     ImageButton menuButtonPlay, menuButtonPacks, menuButtonRecord,menuButtonSetting;
     FragmentManager fragmentManager;
+    RelativeLayout relativeLayoutMenu;
+    SettingFragment settingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
         menuButtonRecord.setOnClickListener(this);
         menuButtonSetting.setOnClickListener(this);
 
+        relativeLayoutMenu=(RelativeLayout)findViewById(R.id.relativeLayoutMenu);
+
         fragmentManager = getSupportFragmentManager();
     }
 
@@ -49,11 +54,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
             view.getId()== R.id.menuButtonSetting){
 
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                view.animate().setDuration(100);
                 view.animate().scaleX(1.2f);
                 view.animate().scaleY(1.2f);
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                view.animate().setDuration(100);
                 view.animate().scaleX(1.0f);
                 view.animate().scaleY(1.0f);
             }
@@ -96,24 +99,24 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
             FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
 
-            Fragment settingFragment = new SettingFragment();
+            settingFragment = new SettingFragment();
 
             if(fragmentManager.findFragmentById(R.id.scoreboardFragment)!=null){
                 fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.scoreboardFragment)).commit();
             }
             fragmentTransaction.add(R.id.activity_main,settingFragment);
             fragmentTransaction.commit();
-            menuButtonSetting.setClickable(false);
-    }
-
-    public void closeFragment(){
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
-        fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.activity_play)).commit();
+            relativeLayoutMenu.setAlpha(0.2f);// Relative Layout -> alpha
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    public void onBackPressed() {
+        if(settingFragment!=null){
+            settingFragment.dismiss();
+            relativeLayoutMenu.setAlpha(1.0f);
+        }
+        else{
+            super.onBackPressed();
+        }
     }
 }

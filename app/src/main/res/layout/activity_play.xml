@@ -12,7 +12,7 @@
         android:splitMotionEvents="false"
         android:id="@+id/relativeLayoutPlay"
         >
-    </RelativeLayout>
+
 
     <ViewSwitcher
         android:layout_width="wrap_content"
@@ -202,6 +202,7 @@
                 />
         </RelativeLayout>
 
+    </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

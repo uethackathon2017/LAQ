@@ -29,10 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp">
+            android:layout_marginBottom="45dp"
+            android:id="@+id/relativeLayout3">
 
             <ImageButton
-                android:padding="5dp"
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
@@ -43,7 +44,7 @@
                 android:layout_centerHorizontal="true" />
 
             <ImageButton
-                android:padding="5dp"
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
@@ -55,6 +56,16 @@
                 />
 
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playFragmentTextViewScore"
+            android:text="100"
+            android:textColor="#ffffff"
+            android:textSize="60dp"
+            android:layout_above="@+id/relativeLayout3"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>

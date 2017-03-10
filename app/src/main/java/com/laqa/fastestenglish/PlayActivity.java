@@ -110,10 +110,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(view.getId()== R.id.playRelaytive1 ||
+        if((view.getId()== R.id.playRelaytive1 ||
                 view.getId()== R.id.playRelaytive2 ||
                 view.getId()== R.id.playRelaytive3 ||
-                view.getId()== R.id.playRelaytive4){
+                view.getId()== R.id.playRelaytive4)&&(showPopUp.get()==false)){
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 view.setBackgroundResource(R.drawable.play_button2);
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -147,31 +147,32 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         relativeLayoutPlay.startAnimation(shake);
 
         if(showPopUp.get()==false) {
-            //FragmentManager fragmentManager = getSupportFragmentManager();
-            //Hiện logo lên trong tầm 2s rồi chuyển đến menu chính
-            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
+            if(!isFinishing()) {
+                //FragmentManager fragmentManager = getSupportFragmentManager();
+                //Hiện logo lên trong tầm 2s rồi chuyển đến menu chính
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
 
 
-            Bundle bundleScore = new Bundle();
-            bundleScore.putInt("score",score);
-            bundleScore.putInt("time",progrssBarStatus);
+                Bundle bundleScore = new Bundle();
+                bundleScore.putInt("score", score);
+                bundleScore.putInt("time", progrssBarStatus);
 
-            Fragment scoreboardFragment = new ScoreboardFragment();
+                Fragment scoreboardFragment = new ScoreboardFragment();
 
-            scoreboardFragment.setArguments(bundleScore);
+                scoreboardFragment.setArguments(bundleScore);
 
-            if(fragmentManager.findFragmentById(R.id.scoreboardFragment)!=null){
-                fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.scoreboardFragment)).commit();
+                if (fragmentManager.findFragmentById(R.id.scoreboardFragment) != null) {
+                    fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.scoreboardFragment)).commit();
+                }
+                fragmentTransaction.add(R.id.activity_play, scoreboardFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+                relativeLayoutPlay.setAlpha(0.2f);// Relative Layout -> alpha
+                playRelaytive1.setClickable(false);
+                playRelaytive2.setClickable(false);
+                playRelaytive3.setClickable(false);
+                playRelaytive4.setClickable(false);
             }
-            fragmentTransaction.add(R.id.activity_play,scoreboardFragment);
-            fragmentTransaction.commit();
-            relativeLayoutPlay.setAlpha(0.2f);// Relative Layout -> alpha
-            playRelaytive1.setClickable(false);
-            playRelaytive2.setClickable(false);
-            playRelaytive3.setClickable(false);
-            playRelaytive4.setClickable(false);
-
         }
         showPopUp.set(true);
     }
@@ -183,9 +184,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
             @Override
             public void run() {
                 if (progrssBarStatus > 0 && stopProgressBar == false) {
-                    progrssBarStatus = progrssBarStatus - 2;// -2
+                    progrssBarStatus = progrssBarStatus - 1;// -2
                     progressBar.setProgress(progrssBarStatus);
-                    timerHandler.postDelayed(this, 20);
+                    timerHandler.postDelayed(this, 30);
                 }
 
                 if (progrssBarStatus == 0) {
