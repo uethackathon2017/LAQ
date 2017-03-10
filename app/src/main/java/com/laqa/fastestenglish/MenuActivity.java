@@ -1,5 +1,6 @@
 package com.laqa.fastestenglish;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -24,6 +25,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
         menuButtonPacks.setOnTouchListener(this);
         menuButtonRecord.setOnTouchListener(this);
         menuButtonSetting.setOnTouchListener(this);
+
+        menuButtonPlay.setOnClickListener(this);
+        menuButtonPacks.setOnClickListener(this);
+        menuButtonRecord.setOnClickListener(this);
+        menuButtonSetting.setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +57,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
         switch (view.getId()){
             case R.id.menuButtonPlay:
                 //Chuyen sang trang Play
+                Intent intentPlay= new Intent(MenuActivity.this,PlayActivity.class);
+                intentPlay.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intentPlay);
                 break;
 
             case R.id.menuButtonPacks:
