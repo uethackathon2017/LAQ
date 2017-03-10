@@ -1,6 +1,9 @@
 package com.laqa.fastestenglish;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,6 +14,7 @@ import android.widget.ImageButton;
 public class MenuActivity extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener{
 
     ImageButton menuButtonPlay, menuButtonPacks, menuButtonRecord,menuButtonSetting;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
         menuButtonPacks.setOnClickListener(this);
         menuButtonRecord.setOnClickListener(this);
         menuButtonSetting.setOnClickListener(this);
+
+        fragmentManager = getSupportFragmentManager();
     }
 
     @Override
@@ -79,7 +85,35 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
 
             case R.id.menuButtonSetting:
                 //Goi Fragment Setting
+                showSettingFragment();
                 break;
         }
+    }
+
+    public void showSettingFragment(){
+            //FragmentManager fragmentManager = getSupportFragmentManager();
+            //Hiện logo lên trong tầm 2s rồi chuyển đến menu chính
+            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
+
+            Fragment settingFragment = new SettingFragment();
+
+            if(fragmentManager.findFragmentById(R.id.scoreboardFragment)!=null){
+                fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.scoreboardFragment)).commit();
+            }
+            fragmentTransaction.add(R.id.activity_main,settingFragment);
+            fragmentTransaction.commit();
+            menuButtonSetting.setClickable(false);
+    }
+
+    public void closeFragment(){
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
+        fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.activity_play)).commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }
