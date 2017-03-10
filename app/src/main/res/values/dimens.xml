@@ -5,6 +5,7 @@
 
     <dimen name="play_button_text_size">20dp</dimen>
     <dimen name="play_button_image_width_height">150dp</dimen>
+    <dimen name="play_button_image_size">50dp</dimen>
     <dimen name="play_score_text_size">30dp</dimen>
 
     <dimen name="play_big_text_size">60dp</dimen>

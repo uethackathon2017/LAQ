@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_record"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.laqa.fastestenglish.RecordActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/play_bg1"
+        >
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:dividerHeight="10dp"
+            android:divider="@null"
+            android:background="@null"
+            android:layout_height="match_parent"
+            android:id="@+id/recordListView"
+            android:layout_below="@+id/saveRecordRelative"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/saveRecordRelative"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#1689E2"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:src="@drawable/record_top10"
+                android:layout_centerHorizontal="true" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/recordButtonBack"
+                android:background="@null"
+                android:src="@drawable/record_back"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@drawable/record_border_normal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:textColor="#95F3FD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TENNGUOICHOI"
+            android:id="@+id/recordTextViewName"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:layout_alignBaseline="@+id/recordTextViewSTT"
+            android:layout_alignBottom="@+id/recordTextViewSTT"
+            android:layout_toRightOf="@+id/recordTextViewSTT"
+            android:layout_toEndOf="@+id/recordTextViewSTT" />
+
+        <TextView
+            android:textColor="#95F3FD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="1"
+            android:id="@+id/recordTextViewSTT"
+            android:layout_marginLeft="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp" />
+
+        <TextView
+            android:textColor="#95F3FD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="20"
+            android:id="@+id/recordScore"
+            android:layout_alignBaseline="@+id/recordTextViewName"
+            android:layout_alignBottom="@+id/recordTextViewName"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp" />
+
+    </RelativeLayout>
+</RelativeLayout>
