@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.laqa.fastestenglish.SQLite.GetData;
 
 public class MenuActivity extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener{
 
@@ -18,6 +21,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
     FragmentManager fragmentManager;
     RelativeLayout relativeLayoutMenu;
     SettingFragment settingFragment;
+
+    GetData getData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
         relativeLayoutMenu=(RelativeLayout)findViewById(R.id.relativeLayoutMenu);
 
         fragmentManager = getSupportFragmentManager();
+
+        getData = new GetData(this);
+        getData.open();
+        Toast.makeText(this, "Current Packs: "+getData.getCurrentPacks(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
