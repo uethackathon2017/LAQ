@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.laqa.fastestenglish.MenuActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/menu_bg"
+        android:splitMotionEvents="false"
+        android:id="@+id/relativeLayoutMenu"
+        >
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/menu_setting"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/menuButtonSetting"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/menuButtonSetting"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_play"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:id="@+id/menuButtonPlay"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_record"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:id="@+id/menuButtonRecord"
+                android:layout_toRightOf="@+id/menuButtonPlay"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_packs"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:id="@+id/menuButtonPacks"
+                android:layout_toLeftOf="@+id/menuButtonPlay"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
