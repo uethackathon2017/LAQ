@@ -47,9 +47,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     private boolean stopProgressBar=false;
     int score = 0;
     boolean winOrLose=false;//Thua
+    GetData getData;
 
     private MediaPlayer song2;
     private MediaPlayer song;
+    private MediaPlayer song3;
 
     Typeface typeface;
 
@@ -69,6 +71,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     int numberQuestionTrue=0;
     int numberQuestion=0;
     int countWrong = 0;
+
+    boolean sound=true;
+    boolean music=true;
 
     List<Question> listQuestion;
     Question currentQuestion;
@@ -107,9 +112,25 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
         typeface = Typeface.createFromAsset(getAssets(), "fonts/utm_cookies.ttf");
 
+//        if(getData.getSound()==1) {
+//            sound=true;
+//        }
+//        else{
+//            sound=false;
+//        }
+//        if(getData.getMusic()==1) {
+//            music=true;
+//        }
+//        else{
+//            music=false;
+//        }
+
         song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
         song = MediaPlayer.create(PlayActivity.this, R.raw.win);
-
+        song3 = MediaPlayer.create(PlayActivity.this, R.raw.music2);
+        if(music==true) {
+            song3.start();
+        }
         playBigText.setTypeface(typeface);
         playTextView1.setTypeface(typeface);
         playTextView2.setTypeface(typeface);
@@ -166,7 +187,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         filter.addAction(RESTART_PLAY);
         registerReceiver(receiver, filter);
 
-        final GetData getData = new GetData(this);
+        getData = new GetData(this);
         getData.open();
         listQuestion = getData.getAll();
         //Toast.makeText(this, String.valueOf(getData.getPosition()), Toast.LENGTH_SHORT).show();
@@ -219,6 +240,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     public void onDestroy() {
         song.reset();
         song2.reset();
+        song3.reset();
         this.unregisterReceiver(receiver);
         super.onDestroy();
     }
@@ -256,6 +278,17 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
             }
         }
         showPopUp.set(true);
+        if(song3!=null){
+            song3.stop();
+        }
+        if(song2!=null){
+            song2.stop();
+            song2.release();
+        }
+        song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+        if(sound==true) {
+            song2.start();
+        }
     }
 
     public void chayTiengTrinh() {
@@ -383,19 +416,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     public void nextQuestion(List<Question> listQuestion){
         numberQuestion++;
-        final GetData getData = new GetData(this);
         getData.open();
         if(numberQuestion>listQuestion.size()){
             if(listQuestion.size()<=100) {
                 //Toast.makeText(this, "Increase position", Toast.LENGTH_SHORT).show();
                 if (getData.getPosition() < getData.countData()){
                     getData.updatePosition();
-                }
-                if (score == getData.countData()){
-                    Toast.makeText(this, "You WIN", Toast.LENGTH_SHORT).show();
-                    winOrLose=true;
-                    showScoreboard();
-                    stopProgressBar=true;
                 }
                 //Toast.makeText(this, "id of next question: " + (getData.getPosition()), Toast.LENGTH_SHORT).show();
                 Question questionAdd = getData.getQuestion(getData.getPosition());
@@ -428,10 +454,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song.release();
                     }
                     song = MediaPlayer.create(PlayActivity.this, R.raw.win);
-                    song.start();
-                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
+                    if(sound==true) {
+                        song.start();
+                    }
+                    playTextViewScore.setText(score+"");
                 }
                 else{
+                    relativeLayoutPlay.startAnimation(shake);
+                    if(song2!=null){
+                        song2.stop();
+                        song2.release();
+                    }
+                    song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+                    if(sound==true) {
+                        song2.start();
+                    }
                     if(countWrong==2){
                         endGame();
                     }
@@ -457,10 +494,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song.release();
                     }
                     song = MediaPlayer.create(PlayActivity.this, R.raw.win);
-                    song.start();
-                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
+                    if(sound==true) {
+                        song.start();
+                    }
+                    playTextViewScore.setText(score+"");
                 }
                 else{
+                    relativeLayoutPlay.startAnimation(shake);
+                    if(song2!=null){
+                        song2.stop();
+                        song2.release();
+                    }
+                    song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+                    if(sound==true) {
+                        song2.start();
+                    }
                     if(countWrong==2){
                         endGame();
                     }
@@ -486,10 +534,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song.release();
                     }
                     song = MediaPlayer.create(PlayActivity.this, R.raw.win);
-                    song.start();
-                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
+                    if(sound==true) {
+                        song.start();
+                    }
+                    playTextViewScore.setText(score+"");
                 }
                 else{
+                    relativeLayoutPlay.startAnimation(shake);
+                    if(song2!=null){
+                        song2.stop();
+                        song2.release();
+                    }
+                    song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+                    if(sound==true) {
+                        song2.start();
+                    }
                     if(countWrong==2){
                         endGame();
                     }
@@ -515,10 +574,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song.release();
                     }
                     song = MediaPlayer.create(PlayActivity.this, R.raw.win);
-                    song.start();
-                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
+                    if(sound==true) {
+                        song.start();
+                    }
+                    playTextViewScore.setText(score+"");
                 }
                 else{
+                    relativeLayoutPlay.startAnimation(shake);
+                    if(song2!=null){
+                        song2.stop();
+                        song2.release();
+                    }
+                    song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+                    if(sound==true) {
+                        song2.start();
+                    }
                     if(countWrong==2){
                         endGame();
                     }
@@ -536,6 +606,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
             else if(action.equals(RESTART_PLAY)==true){
                 restart();
             }
+            if(score<0){
+                score=0;
+            }
+            if(score==getData.countData()) {
+                winOrLose = true;
+                showScoreboard();
+                stopProgressBar = true;
+            }
         }
     };
 
@@ -547,7 +625,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
             song2.release();
         }
         song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
-        song2.start();
+        if(sound==true) {
+            song2.start();
+        }
+        if(song3!=null){
+            song3.stop();
+        }
     }
 
     //Restart Activity

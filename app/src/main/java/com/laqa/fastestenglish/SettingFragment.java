@@ -8,9 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.laqa.fastestenglish.SQLite.GetData;
 
 
 /**
@@ -21,6 +25,8 @@ public class SettingFragment extends DialogFragment implements View.OnClickListe
     RelativeLayout settingFullScreen, settingFragment;
     Typeface typeface;
     TextView menuTextViewEmail;
+    Switch switch1,switch2;
+    GetData getData;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -39,6 +45,36 @@ public class SettingFragment extends DialogFragment implements View.OnClickListe
         menuTextViewEmail.setTypeface(typeface);
         settingFullScreen.setOnClickListener(this);
         settingFragment.setOnClickListener(this);
+        switch1=(Switch)view.findViewById(R.id.switch1);
+        switch2=(Switch)view.findViewById(R.id.switch2);
+        getData = new GetData(getActivity());
+
+//        if(getData.getMusic()==1){
+//            switch1.setChecked(true);
+//        }
+//        else{
+//            switch1.setChecked(false);
+//        }
+//
+//        if(getData.getSound()==1){
+//            switch1.setChecked(true);
+//        }
+//        else{
+//            switch1.setChecked(false);
+//        }
+//
+//        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                getData.changeMusic();
+//            }
+//        });
+//        switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                getData.changeSound();
+//            }
+//        });
         return view;
     }
 

@@ -25,7 +25,7 @@
 
         <ImageView
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:background="@null"
@@ -89,8 +89,8 @@
             android:adjustViewBounds="true"
             >
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/play_default"
                 android:scaleType="fitCenter"
@@ -120,8 +120,8 @@
             android:layout_toRightOf="@+id/playRelaytive1"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/play_default"
                 android:scaleType="fitCenter"
@@ -150,8 +150,8 @@
             android:scaleType="fitCenter"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/play_default"
                 android:scaleType="fitCenter"
@@ -181,8 +181,8 @@
             android:scaleType="fitCenter"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/play_default"
                 android:scaleType="fitCenter"
