@@ -10,8 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.laqa.fastestenglish.PlayActivity;
+import com.laqa.fastestenglish.Question.Pack;
 import com.laqa.fastestenglish.R;
 import com.laqa.fastestenglish.SQLite.GetData;
+
+import java.util.ArrayList;
 
 /**
  * Created by Phong le on 3/11/2017.
@@ -19,22 +23,22 @@ import com.laqa.fastestenglish.SQLite.GetData;
 
 public class GridViewAdapter extends BaseAdapter {
     private Context mContext;
-    private final String[] web;
-    private final int[] Imageid;
+//    private final String[] web;
+//    private final int[] Imageid;
+    private final ArrayList<Pack> listPack;
     Typeface typeface;
 
     GetData getData;
 
-    public GridViewAdapter(Context c,String[] web,int[] Imageid ) {
+    public GridViewAdapter(Context c,ArrayList<Pack> listPack) {
         mContext = c;
-        this.Imageid = Imageid;
-        this.web = web;
+        this.listPack = listPack;
     }
 
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return web.length;
+        return listPack.size();
     }
 
     @Override
@@ -59,8 +63,19 @@ public class GridViewAdapter extends BaseAdapter {
             ImageView gridViewStar = (ImageView) grid.findViewById(R.id.gridViewStar);
             TextView gridViewTextView = (TextView) grid.findViewById(R.id.gridViewTextView);
             ImageView gridViewImage = (ImageView)grid.findViewById(R.id.packsGridViewImage);
-            gridViewTextView.setText(web[position]);
-            gridViewImage.setImageResource(Imageid[position]);
+
+
+            if(listPack.get(position).getTenPack()!="Locked") {
+                gridViewTextView.setText(listPack.get(position).getTenPack());
+                int resTrue = mContext.getResources().getIdentifier(listPack.get(position).getTenPack().toLowerCase(), "drawable", PlayActivity.PACKAGE_NAME);
+                gridViewImage.setImageResource(resTrue);
+            }
+            else{
+                gridViewTextView.setText("Locked");
+                int resTrue = mContext.getResources().getIdentifier("packs_lock", "drawable", PlayActivity.PACKAGE_NAME);
+                gridViewImage.setImageResource(resTrue);
+            }
+
             typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/utm_cookies.ttf");
             gridViewTextView.setTypeface(typeface);
             getData=new GetData(mContext);
@@ -69,7 +84,7 @@ public class GridViewAdapter extends BaseAdapter {
                 gridViewStar.setVisibility(View.VISIBLE);
             }
             else{
-                gridViewStar.setVisibility(View.GONE);
+                //gridViewStar.setVisibility(View.GONE);
             }
         return grid;
     }

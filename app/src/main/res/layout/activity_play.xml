@@ -41,6 +41,7 @@
             android:textSize="@dimen/play_big_text_size"
             android:id="@+id/playBigText"
             android:visibility="gone"
+            android:textColor="#ffffff"
             />
 
     </ViewSwitcher>
@@ -61,6 +62,7 @@
         android:id="@+id/playTextViewScore"
         android:text="00"
         android:textSize="@dimen/play_score_text_size"
+        android:textColor="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="28dp"

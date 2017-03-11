@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteCursorDriver;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.laqa.fastestenglish.Question.Pack;
 import com.laqa.fastestenglish.Question.Question;
 import com.laqa.fastestenglish.Question.Record;
 
@@ -242,6 +243,39 @@ public class GetData {
         }
         int diem = cursor.getInt(cursor.getColumnIndex(SQLite.DIEM_RECORD));
         return diem;
+    }
+
+    public int countPacks(){
+        int count=0;
+        String cautruyvan = "SELECT * FROM "+SQLite.TABLE_SETUP;
+        Cursor cursor = sqLiteDatabase.rawQuery(cautruyvan,null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            count++;
+            cursor.moveToNext();
+        }
+        return count;
+    }
+
+    public ArrayList<Pack> listPack(){
+        ArrayList<Pack> duLieu = new ArrayList<Pack>();
+        String cautruyvan = "SELECT * FROM "+SQLite.TABLE_SETUP;
+        Cursor cursor = sqLiteDatabase.rawQuery(cautruyvan, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            int idPack = cursor.getInt(cursor.getColumnIndex(SQLite.ID_SETUP));
+            String tenPack = cursor.getString(cursor.getColumnIndex(SQLite.NAME_PACK));
+            int positionPack = cursor.getInt(cursor.getColumnIndex(SQLite.POSITION_SETUP));
+            int packSetup = cursor.getInt(cursor.getColumnIndex(SQLite.PACKS_SETUP));
+            Pack pack = new Pack();
+            pack.setIdPack(idPack);
+            pack.setTenPack(tenPack);
+            pack.setPositionPack(positionPack);
+            pack.setPackSetup(packSetup);
+            duLieu.add(pack);
+            cursor.moveToNext();
+        }
+        return duLieu;
     }
 
 }

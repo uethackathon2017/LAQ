@@ -31,6 +31,7 @@ public class SQLite extends SQLiteOpenHelper{
     //Chứa các thông tin cài đặt packs
     public static String TABLE_SETUP = "Setup";
     public static String ID_SETUP = "id";
+    public static String NAME_PACK = "name_pack";
     public static String POSITION_SETUP = "position";
     public static String PACKS_SETUP ="pack";
 
@@ -69,6 +70,7 @@ public class SQLite extends SQLiteOpenHelper{
 
         createTable = "CREATE TABLE " +TABLE_SETUP+ " ( "
                 + ID_SETUP +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + NAME_PACK +" TEXT, "
                 + POSITION_SETUP + " INTEGER,"
                 + PACKS_SETUP +" INTEGER"
                 + ");";

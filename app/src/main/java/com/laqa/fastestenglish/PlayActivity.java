@@ -183,8 +183,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         playViewSwticher.setInAnimation(leftIn);
         playViewSwticher.setOutAnimation(rightOut);
 
-        chayTiengTrinh();
-
         IntentFilter filter = new IntentFilter();
         filter.addAction(CHOOSE_1);
         filter.addAction(CHOOSE_2);
@@ -196,7 +194,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         listQuestion = getData.getAll();
         //Toast.makeText(this, String.valueOf(getData.getPosition()), Toast.LENGTH_SHORT).show();
         nextQuestion(listQuestion);
-
     }
 
     @Override
@@ -248,7 +245,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         song.reset();
         song2.reset();
         song3.reset();
-        timerHandler.removeCallbacks(runnable);
+        if(timerHandler!=null) {
+            timerHandler.removeCallbacks(runnable);
+        }
         this.unregisterReceiver(receiver);
         super.onDestroy();
     }
@@ -444,7 +443,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         else{
             //Toast.makeText(this, "You WIN", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -622,6 +620,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                 winOrLose = true;
                 showScoreboard();
                 stopProgressBar = true;
+            }
+            if(score==1) {
+                chayTiengTrinh();
             }
         }
     };
