@@ -2,6 +2,7 @@ package com.laqa.fastestenglish.SQLite;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.laqa.fastestenglish.Question.Question;
@@ -53,7 +54,7 @@ public class GetData {
     }
 
     public Question getQuestion(int id){
-        String get = "SELECT * FROM "+SQLite.TABLE_English1000+" WHERE "+SQLite.ID_English1000+" = "+id +" AND "+SQLite.PACKS_NUMBER+ "= "+getCurrentPacks();
+        String get = "SELECT * FROM "+SQLite.TABLE_English1000+" WHERE "+SQLite.NEW_ID_ENGLISH1000+" = "+id +" AND "+SQLite.PACKS_NUMBER+ " = "+getCurrentPacks();
         Cursor cursor = sqLiteDatabase.rawQuery(get,null);
         cursor.moveToFirst();
         String eng =cursor.getString(cursor.getColumnIndex(SQLite.English_English1000));
@@ -83,11 +84,11 @@ public class GetData {
                 random = r.nextInt(position+1 - 1) + 1;
             }while(random==randomNumber[0] || random==randomNumber[1] || random==randomNumber[2] || random == id);
             randomNumber[i] = random;
-            String getTrue = "SELECT * FROM " + SQLite.TABLE_English1000 + " WHERE " + SQLite.ID_English1000 + " = " + random+" AND "+ SQLite.PACKS_NUMBER+" = "+getCurrentPacks();
+            String getTrue = "SELECT * FROM " + SQLite.TABLE_English1000 + " WHERE " + SQLite.NEW_ID_ENGLISH1000 + " = " + random+" AND "+ SQLite.PACKS_NUMBER+" = "+getCurrentPacks();
             Cursor cursor = sqLiteDatabase.rawQuery(getTrue, null);
             cursor.moveToFirst();
             Question questionNew = new Question();
-            questionNew.setId(cursor.getInt(cursor.getColumnIndex(SQLite.ID_English1000)));//set ID theo new ID
+            questionNew.setId(cursor.getInt(cursor.getColumnIndex(SQLite.NEW_ID_ENGLISH1000)));//set ID theo new ID
             questionNew.setEnglish(cursor.getString(cursor.getColumnIndex(SQLite.English_English1000)));
             wrongAnswers[i] = questionNew;
         }
@@ -107,13 +108,14 @@ public class GetData {
 
     public List<Question> getAll(){
         List<Question> listQuestion = new ArrayList<Question>();
-        String cautruyvan = "SELECT * FROM "+SQLite.TABLE_English1000 +" WHERE "+SQLite.ID_English1000+" <= "+getPosition();
+        String cautruyvan = "SELECT * FROM "+SQLite.TABLE_English1000 +" WHERE "+SQLite.NEW_ID_ENGLISH1000+" <= "+getPosition() +" AND "+
+                SQLite.PACKS_NUMBER +" = "+getCurrentPacks();
         Cursor cursor = sqLiteDatabase.rawQuery(cautruyvan,null);
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             //int id = cursor.getInt(0);
-            int id = cursor.getInt(cursor.getColumnIndex(SQLite.ID_English1000));
+            int id = cursor.getInt(cursor.getColumnIndex(SQLite.NEW_ID_ENGLISH1000));
             String english = cursor.getString(cursor.getColumnIndex(SQLite.English_English1000));
             int newId = cursor.getInt(cursor.getColumnIndex(SQLite.NEW_ID_ENGLISH1000));
             Question question = new Question();
