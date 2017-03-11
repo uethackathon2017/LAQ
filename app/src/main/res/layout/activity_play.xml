@@ -29,7 +29,6 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:src="@drawable/play_default"
             android:id="@+id/playImageViewBig"
             android:visibility="visible"
             android:layout_gravity="center"

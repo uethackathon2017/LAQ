@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
 
         getData = new GetData(this);
         getData.open();
-        Toast.makeText(this, "Current Packs: "+getData.getCurrentPacks(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Current Packs: "+getData.getCurrentPacks(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

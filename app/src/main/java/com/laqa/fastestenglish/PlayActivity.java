@@ -1,5 +1,9 @@
 package com.laqa.fastestenglish;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,10 +20,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.laqa.fastestenglish.Question.Question;
+import com.laqa.fastestenglish.SQLite.GetData;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -36,7 +43,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     AtomicBoolean showPopUp = new AtomicBoolean(false);
 
     private ProgressBar progressBar;
-    private int progrssBarStatus = 100;
     private boolean stopProgressBar=false;
     int score = 0;
 
@@ -44,6 +50,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     FragmentManager fragmentManager;
 
+    public static final String PACKAGE_NAME="com.laqa.fastestenglish";
+
+    public static final String CHOOSE_1 = "ChooseAnswer1";
+    public static final String CHOOSE_2 = "ChooseAnswer2";
+    public static final String CHOOSE_3 = "ChooseAnswer3";
+    public static final String CHOOSE_4 = "ChooseAnswer4";
+
+    private int progrssBarStatus = 100;
+
+    int numberQuestionTrue=0;
+    int numberQuestion=0;
+    int countWrong = 1;
+
+    List<Question> listQuestion;
+    Question currentQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +81,18 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         relativeLayoutPlay=(RelativeLayout)findViewById(R.id.relativeLayoutPlay);
 
         playTextViewScore=(TextView)findViewById(R.id.playTextViewScore);
+
         playBigText=(TextView)findViewById(R.id.playBigText);
         playTextView1=(TextView)findViewById(R.id.playTextView1);
         playTextView2=(TextView)findViewById(R.id.playTextView2);
         playTextView3=(TextView)findViewById(R.id.playTextView3);
         playTextView4=(TextView)findViewById(R.id.playTextView4);
 
-        playImageView1=(ImageView)findViewById(R.id.playImageView1);
-        playImageView1=(ImageView)findViewById(R.id.playImageView1);
-        playImageView1=(ImageView)findViewById(R.id.playImageView1);
-        playImageView1=(ImageView)findViewById(R.id.playImageView1);
-
-
         playImageViewBig=(ImageView)findViewById(R.id.playImageViewBig);
+        playImageView1=(ImageView)findViewById(R.id.playImageView1);
+        playImageView2=(ImageView)findViewById(R.id.playImageView2);
+        playImageView3=(ImageView)findViewById(R.id.playImageView3);
+        playImageView4=(ImageView)findViewById(R.id.playImageView4);
 
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
@@ -127,6 +147,20 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         playViewSwticher.setOutAnimation(rightOut);
 
         chayTiengTrinh();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(CHOOSE_1);
+        filter.addAction(CHOOSE_2);
+        filter.addAction(CHOOSE_3);
+        filter.addAction(CHOOSE_4);
+        registerReceiver(receiver, filter);
+
+        final GetData getData = new GetData(this);
+        getData.open();
+        listQuestion = getData.getAll();
+        //Toast.makeText(this, String.valueOf(getData.getPosition()), Toast.LENGTH_SHORT).show();
+        nextQuestion(listQuestion);
+
     }
 
     @Override
@@ -145,23 +179,35 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     @Override
-    public void onClick(View view) {
-        switch(view.getId()){
+    public void onClick(View v) {
+        Intent intentCheck=null;
+        switch(v.getId()){
             case R.id.playRelaytive1:
+                intentCheck = new Intent(this.CHOOSE_1);
                 break;
             case R.id.playRelaytive2:
+                intentCheck = new Intent(this.CHOOSE_2);
                 break;
             case R.id.playRelaytive3:
+                intentCheck = new Intent(this.CHOOSE_3);
                 break;
             case R.id.playRelaytive4:
+                intentCheck = new Intent(this.CHOOSE_4);
                 break;
         }
+        sendBroadcast(intentCheck);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.leftin, R.anim.rightout);
+    }
+
+    @Override
+    public void onDestroy() {
+        this.unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     public void showScoreboard(){
@@ -216,4 +262,226 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
             }
         }, 5);
     }
+
+
+    public void setupQuestion(Question question, Question[] wrongAnswer){
+        progrssBarStatus=100;
+        Random r = new Random();
+        int randomNumber = r.nextInt(3-1)+1;
+
+        //randomNumber = 1;//TEST
+
+        int randomNumber2 =0;
+        if(randomNumber==1){
+            //Image in question, String in answer
+            Random r2 = new Random();
+            randomNumber2 = r2.nextInt(5-1)+1;
+
+            //randomNumber2 = 1;//TEST
+
+            int resTrue = getResources().getIdentifier(question.getEnglish(), "drawable", PACKAGE_NAME );
+            playImageViewBig.setVisibility(View.VISIBLE);
+            playImageViewBig.setImageResource(resTrue);
+            playBigText.setVisibility(View.GONE);
+
+            playImageView1.setImageResource(0);
+            playImageView2.setImageResource(0);
+            playImageView3.setImageResource(0);
+            playImageView4.setImageResource(0);
+
+
+            switch (randomNumber2){
+                case 1 :
+                    playTextView1.setText(question.getEnglish());
+                    playTextView2.setText(wrongAnswer[0].getEnglish());
+                    playTextView3.setText(wrongAnswer[1].getEnglish());
+                    playTextView4.setText(wrongAnswer[2].getEnglish());
+                    break;
+                case 2:
+                    playTextView1.setText(wrongAnswer[0].getEnglish());
+                    playTextView2.setText(question.getEnglish());
+                    playTextView3.setText(wrongAnswer[1].getEnglish());
+                    playTextView4.setText(wrongAnswer[2].getEnglish());
+                    break;
+                case 3:
+                    playTextView1.setText(wrongAnswer[0].getEnglish());
+                    playTextView2.setText(wrongAnswer[1].getEnglish());
+                    playTextView3.setText(question.getEnglish());
+                    playTextView4.setText(wrongAnswer[2].getEnglish());
+                    break;
+                case 4:
+                    playTextView1.setText(wrongAnswer[0].getEnglish());
+                    playTextView2.setText(wrongAnswer[1].getEnglish());
+                    playTextView3.setText(wrongAnswer[2].getEnglish());
+                    playTextView4.setText(question.getEnglish());
+                    break;
+            }
+        }
+        else{
+            //String in answer, Image in answer
+            Random r2 = new Random();
+            randomNumber2 = r2.nextInt(5-1)+1;
+            playImageViewBig.setVisibility(View.GONE);
+            playBigText.setVisibility(View.VISIBLE);
+            playBigText.setText(question.getEnglish());
+            int resTrue = getResources().getIdentifier(question.getEnglish(), "drawable", PACKAGE_NAME );
+            int resWrong1 = getResources().getIdentifier(wrongAnswer[0].getEnglish(), "drawable", PACKAGE_NAME );
+            int resWrong2 = getResources().getIdentifier(wrongAnswer[1].getEnglish(), "drawable", PACKAGE_NAME );
+            int resWrong3 = getResources().getIdentifier(wrongAnswer[2].getEnglish(), "drawable", PACKAGE_NAME );
+            playImageView1.setVisibility(View.VISIBLE);
+            playImageView2.setVisibility(View.VISIBLE);
+            playImageView3.setVisibility(View.VISIBLE);
+            playImageView4.setVisibility(View.VISIBLE);
+
+            playTextView1.setText("");
+            playTextView2.setText("");
+            playTextView3.setText("");
+            playTextView4.setText("");
+            switch (randomNumber2){
+                case 1 :
+                    playImageView1.setImageResource(resTrue);
+                    playImageView2.setImageResource(resWrong1);
+                    playImageView3.setImageResource(resWrong2);
+                    playImageView4.setImageResource(resWrong3);
+                    break;
+                case 2:
+                    playImageView1.setImageResource(resWrong1);
+                    playImageView2.setImageResource(resTrue);
+                    playImageView3.setImageResource(resWrong2);
+                    playImageView4.setImageResource(resWrong3);
+                    break;
+                case 3:
+                    playImageView1.setImageResource(resWrong1);
+                    playImageView2.setImageResource(resWrong2);
+                    playImageView3.setImageResource(resTrue);
+                    playImageView4.setImageResource(resWrong3);
+                    break;
+                case 4:
+                    playImageView1.setImageResource(resWrong1);
+                    playImageView2.setImageResource(resWrong2);
+                    playImageView3.setImageResource(resWrong3);
+                    playImageView4.setImageResource(resTrue);
+                    break;
+            }
+        }
+        numberQuestionTrue = randomNumber2;
+    }
+
+    public void nextQuestion(List<Question> listQuestion){
+        numberQuestion++;
+        final GetData getData = new GetData(this);
+        getData.open();
+        if(numberQuestion>listQuestion.size()){
+            if(listQuestion.size()<=100) {
+                Toast.makeText(this, "Increase position", Toast.LENGTH_SHORT).show();
+                getData.updatePosition();
+                //Toast.makeText(this, "id of next question: " + (getData.getPosition()), Toast.LENGTH_SHORT).show();
+                Question questionAdd = getData.getQuestion(getData.getPosition());
+                listQuestion.add(questionAdd);
+            }
+        }
+        if(numberQuestion<=listQuestion.size()) {
+            currentQuestion = listQuestion.get(numberQuestion-1);
+            setupQuestion(listQuestion.get(numberQuestion-1), getData.getWrongQuestion(listQuestion.get(numberQuestion-1).getId()));//Lỗi hiểm vcc numberQuestion-1 do List chạy từ 0
+        }
+        else{
+            //Toast.makeText(this, "You WIN", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Lay vao cac dap an
+            String action = intent.getAction();
+            if(action.equals(CHOOSE_1)){
+                if(numberQuestionTrue==1){
+                    nextQuestion(listQuestion);
+//                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
+//                    song.start();
+                }
+                else{
+                    if(countWrong==1){
+                        endGame();
+                    }
+                    else{
+                        //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
+//                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
+//                        song.start();
+                        countWrong++;
+                        listQuestion.add(currentQuestion);
+                        nextQuestion(listQuestion);
+                    }
+                }
+            }
+            else if(action.equals(CHOOSE_2)){
+                if(numberQuestionTrue==2){
+                    nextQuestion(listQuestion);
+//                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
+//                    song.start();
+                }
+                else{
+                    if(countWrong==1){
+                        endGame();
+                    }
+                    else{
+                        //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
+//                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
+//                        song.start();
+                        countWrong++;
+                        listQuestion.add(currentQuestion);
+                        nextQuestion(listQuestion);
+                    }
+                }
+            }
+            else if(action.equals(CHOOSE_3)){
+                if(numberQuestionTrue==3){
+                    nextQuestion(listQuestion);
+//                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
+//                    song.start();
+                }
+                else{
+                    if(countWrong==1){
+                        endGame();
+                    }
+                    else{
+                        //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
+//                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
+//                        song.start();
+                        countWrong++;
+                        listQuestion.add(currentQuestion);
+                        nextQuestion(listQuestion);
+                    }
+                }
+            }
+            else if(action.equals(CHOOSE_4)){
+                if(numberQuestionTrue==4){
+                    nextQuestion(listQuestion);
+//                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
+//                    song.start();
+                }
+                else{
+                    if(countWrong==1){
+                        endGame();
+                    }
+                    else{
+                        //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
+//                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
+//                        song.start();
+                        countWrong++;
+                        listQuestion.add(currentQuestion);
+                        nextQuestion(listQuestion);
+                    }
+                }
+            }
+        }
+    };
+
+    public void endGame(){
+        showScoreboard();
+        stopProgressBar=true;
+    }
+
+
 }

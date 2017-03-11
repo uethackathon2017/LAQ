@@ -17,76 +17,45 @@ import java.io.InputStreamReader;
  */
 
 public class SQLite extends SQLiteOpenHelper{
-    public static String DB_ENGLISH = "databaseenglish";
+    public static String DB_English1000 = "Database1000";
     public static int DB_VERSION = 1;
+    public static String TABLE_English1000 = "WordsDatabase";
+    public static String ID_English1000 = "id";
+    public static String English_English1000 = "english";
+    public static String NEW_ID_ENGLISH1000 = "newid";
+    public static String WRONG_ENGLISH1000 = "wrong";
 
-    public static String TABLE_WORDS = "tablewords"; //Bảng từ
-    public static String ID_WORDS = "id_words"; //STT trong bảng
-    public static String WORDS = "words"; // từ
-    public static String NEW_ID_PACKS = "new_id_packs";// STT của từ trong gói
-    public static String IN_PACKS = "packs";// từ nằm trong gói nào
-
-    public static String TABLE_PACKS = "tablepacks"; //Bảng gói
-    public static String ID_PACKS = "id_packs"; //STT gói
-    public static String PACKS_NAME = "packs_name"; // tên gói
-
-    public static String TABLE_SCORES = "tablescores"; //Bảng điểm
-    public static String ID_SCORES = "id_scores"; //STT điểm
-    public static String NAME_SCORES = "name_scores"; // tên người chơi
-    public static String SCORE_IN_PACKS = "score_inpacks"; // điểm này trong packs nào
-    public static String SCORES = "scores"; // số điểm đạt được
-
-    public static String TABLE_CONTROLLER = "table_controller"; // Bảng điều khiển
-    public static String ID_CONTROLLER = "id_controller"; // id điều khiển
-    public static String POSITION_PACKS = "position_packs"; // Người chơi đến từ nào trong packs
-    public static String PACKS_NUM = "packs_num"; // Packs nào
-
-    public static String TABLE_CHECK_PACKS = "table_check_packs";
-    public static String CURRENT_PACKS="current_packs";
+    public static String TABLE_SETUP = "Setup";
+    public static String ID_SETUP = "id";
+    public static String POSITION_SETUP = "position";
+    public static String PAUSE_SETUP = "pause";
+    public static String SCORE_SETUP = "score";
 
     Context ctx;
 
     public SQLite(Context context) {
-        super(context, DB_ENGLISH, null, DB_VERSION);
+        super(context, DB_English1000, null, DB_VERSION);
         ctx=context;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTable = "CREATE TABLE " +TABLE_WORDS+ " ( "
-                + ID_WORDS +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + WORDS + " TEXT,"
-                + NEW_ID_PACKS + " INTEGER,"
-                + IN_PACKS + " INTEGER"
+    public void onCreate(SQLiteDatabase db) {
+        String createTable = "CREATE TABLE " +TABLE_English1000+ " ( "
+                + ID_English1000 +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + English_English1000 + " TEXT,"
+                + NEW_ID_ENGLISH1000 + " INTEGER,"
+                + WRONG_ENGLISH1000 + " INTEGER"
                 + ");";
-        sqLiteDatabase.execSQL(createTable);
+        db.execSQL(createTable);
 
-        createTable = "CREATE TABLE " +TABLE_PACKS+ " ( "
-                + ID_PACKS +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + PACKS_NAME + " TEXT"
+        String createTable2 = "CREATE TABLE " +TABLE_SETUP+ " ( "
+                + ID_SETUP +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + POSITION_SETUP + " INTEGER,"
+                + PAUSE_SETUP + " INTEGER,"
+                + SCORE_SETUP + " INTEGER"
                 + ");";
-        sqLiteDatabase.execSQL(createTable);
-
-        createTable = "CREATE TABLE " +TABLE_SCORES+ " ( "
-                + ID_SCORES +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + NAME_SCORES + " TEXT,"
-                + SCORE_IN_PACKS + " INTEGER,"
-                + SCORES + " INTEGER"
-                + ");";
-        sqLiteDatabase.execSQL(createTable);
-
-        createTable = "CREATE TABLE " +TABLE_CONTROLLER+ " ( "
-                + ID_CONTROLLER +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + PACKS_NUM + " INTEGER,"
-                + POSITION_PACKS + " INTEGER"
-                + ");";
-        sqLiteDatabase.execSQL(createTable);
-
-        createTable = "CREATE TABLE " +TABLE_CHECK_PACKS+ " ( "
-                + CURRENT_PACKS + " INTEGER"
-                + ");";
-        sqLiteDatabase.execSQL(createTable);
-        readAndExecuteSQLScript(sqLiteDatabase, ctx, R.raw.sql);
+        db.execSQL(createTable2);
+        readAndExecuteSQLScript(db, ctx, R.raw.sql);
     }
 
     private void readAndExecuteSQLScript(SQLiteDatabase db, Context ctx,
@@ -124,17 +93,10 @@ public class SQLite extends SQLiteOpenHelper{
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_WORDS);
-        onCreate(sqLiteDatabase);
-
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_PACKS);
-        onCreate(sqLiteDatabase);
-
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_SCORES);
-        onCreate(sqLiteDatabase);
-
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_CONTROLLER);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_English1000);
+        onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_SETUP);
+        onCreate(db);
     }
 }
