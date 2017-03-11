@@ -242,6 +242,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public void onDestroy() {
+        if(song3!=null){
+            song3.pause();
+        }
         song.reset();
         song2.reset();
         song3.reset();

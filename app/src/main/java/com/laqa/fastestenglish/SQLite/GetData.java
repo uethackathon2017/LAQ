@@ -233,4 +233,15 @@ public class GetData {
         }
     }
 
+    public int minScore(){
+        String cautruyvan = "SELECT "+SQLite.DIEM_RECORD+" FROM "+SQLite.TABLE_RECORD+" ORDER BY "+SQLite.DIEM_RECORD+" ASC"; // LIMIT 10
+        Cursor cursor = sqLiteDatabase.rawQuery(cautruyvan, null);
+        cursor.moveToFirst();
+        if(cursor.getCount()<10){
+            return 0;
+        }
+        int diem = cursor.getInt(cursor.getColumnIndex(SQLite.DIEM_RECORD));
+        return diem;
+    }
+
 }

@@ -29,8 +29,22 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="37dp"
             android:id="@+id/relativeLayout3">
+
+            <ImageButton
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:src="@drawable/play_fragment_play_again"
+                android:id="@+id/playFragmentPlayAgain2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                />
 
             <ImageButton
                 android:padding="8dp"
@@ -65,7 +79,9 @@
             android:textColor="#ffffff"
             android:textSize="60dp"
             android:layout_above="@+id/relativeLayout3"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"

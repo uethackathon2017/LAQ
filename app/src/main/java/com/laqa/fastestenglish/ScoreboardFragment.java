@@ -12,19 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.laqa.fastestenglish.SQLite.GetData;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScoreboardFragment extends Fragment implements View.OnTouchListener,View.OnClickListener{
 
-    ImageButton playFragmentPlayAgain,playFragmentSave;
+    ImageButton playFragmentPlayAgain2,playFragmentPlayAgain,playFragmentSave;
     TextView playFragmentTextViewScore;
     Typeface typeface;
     int score,progressBarStatus;
     TextView wrongOrSlow;
     Intent intentInput;
     boolean winOrLose;
+    GetData getData;
 
     public ScoreboardFragment() {
         // Required empty public constructor
@@ -36,6 +39,7 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_scoreboard, container, false);
+        playFragmentPlayAgain2=(ImageButton)view.findViewById(R.id.playFragmentPlayAgain2);
         playFragmentPlayAgain=(ImageButton)view.findViewById(R.id.playFragmentPlayAgain);
         playFragmentSave=(ImageButton)view.findViewById(R.id.playFragmentSave);
         playFragmentTextViewScore=(TextView)view.findViewById(R.id.playFragmentTextViewScore);
@@ -44,9 +48,11 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
 
         intentInput = new Intent(getActivity(), InputActivity.class);
 
+        playFragmentPlayAgain2.setOnClickListener(this);
         playFragmentPlayAgain.setOnClickListener(this);
         playFragmentSave.setOnClickListener(this);
 
+        playFragmentPlayAgain2.setOnTouchListener(this);
         playFragmentPlayAgain.setOnTouchListener(this);
         playFragmentSave.setOnTouchListener(this);
 
@@ -58,6 +64,19 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
         progressBarStatus = this.getArguments().getInt("time");
         winOrLose = this.getArguments().getBoolean("winOrLose");
         playFragmentTextViewScore.setText(score+"");
+
+        getData=new GetData(getActivity());
+        getData.open();
+
+        if(score<=getData.minScore()){
+//            buttonSave.setImageResource(R.drawable.save2);
+//            buttonSave.setClickable(false);
+//            buttonSave.setEnabled(false);
+            playFragmentSave.setVisibility(View.INVISIBLE);
+            playFragmentPlayAgain.setVisibility(View.INVISIBLE);
+            playFragmentPlayAgain2.setVisibility(View.VISIBLE);
+
+        }
 
         if(winOrLose==true){
             wrongOrSlow.setText("GOODJOB!!!!");
@@ -76,6 +95,10 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.playFragmentPlayAgain2:
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
+                break;
             case R.id.playFragmentPlayAgain:
                 getActivity().finish();
                 startActivity(getActivity().getIntent());
@@ -90,7 +113,8 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(view.getId()== R.id.playFragmentPlayAgain ||
+        if(view.getId()== R.id.playFragmentPlayAgain2 ||
+                view.getId()== R.id.playFragmentPlayAgain ||
                 view.getId()== R.id.playFragmentSave){
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 view.animate().setDuration(100);
