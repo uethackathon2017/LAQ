@@ -4,7 +4,7 @@
     android:id="@+id/activity_packs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/play_bg1"
+    android:background="@drawable/bg_for_all"
     tools:context="com.laqa.fastestenglish.PacksActivity">
 
     <ImageButton

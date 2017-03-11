@@ -53,7 +53,7 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
         packsButtonBack.setOnClickListener(this);
         packsButtonBack.setOnTouchListener(this);
 
-        GridViewAdapter adapter = new GridViewAdapter(this, web, imageId);
+        final GridViewAdapter adapter = new GridViewAdapter(this, web, imageId);
         packsGridView=(GridView)findViewById(R.id.packsGridView);
         packsGridView.setAdapter(adapter);
 
@@ -65,10 +65,16 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
+                packsGridView.findViewById(R.id.gridViewStar).setVisibility(View.INVISIBLE);
                 //Toast.makeText(PacksActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
-                getData.setCurrentPacks((position+1));
-                view.findViewById(R.id.gridViewStar).setVisibility(View.VISIBLE);
+                if(position<2) { //2 là số lượng gói mở ra
+                    view.findViewById(R.id.gridViewStar).setVisibility(View.VISIBLE);
+                    getData.setCurrentPacks(position + 1);
+                    adapter.notifyDataSetChanged();
+                }
             }
+
         });
 
     }

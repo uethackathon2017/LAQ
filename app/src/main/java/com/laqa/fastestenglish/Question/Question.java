@@ -7,7 +7,6 @@ package com.laqa.fastestenglish.Question;
 public class Question {
     private int id; //hiển nhiên là id rồi
     private String english;//từ tiếng anh
-    private int wrong;//số lần sai
 
 
     public int getId() {
@@ -26,16 +25,8 @@ public class Question {
         this.english = english;
     }
 
-    public int getWrong() {
-        return wrong;
-    }
-
-    public void setWrong(int wrong) {
-        this.wrong = wrong;
-    }
     public String toString(){
         return "english: "+getEnglish()+"\n"
-                +"wrong: "+getWrong()+"'n"
                 +"newid: "+getId();
     }
 }

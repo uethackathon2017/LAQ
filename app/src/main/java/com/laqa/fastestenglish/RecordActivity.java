@@ -55,6 +55,8 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         recordButtonBack.setOnTouchListener(this);
         recordButtonBack.setOnClickListener(this);
 
+
+
         decelerateInterpolator = new DecelerateInterpolator(1.0f);
 
         arrayList.add(record1);arrayList.add(record2);arrayList.add(record3);

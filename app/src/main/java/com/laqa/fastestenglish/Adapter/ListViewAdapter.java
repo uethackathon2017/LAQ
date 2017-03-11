@@ -1,6 +1,7 @@
 package com.laqa.fastestenglish.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class ListViewAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Record> listView;
+    Typeface typeface;
 
 
     public ListViewAdapter(Context mContext, ArrayList<Record> listView) {
@@ -60,6 +62,10 @@ public class ListViewAdapter extends BaseAdapter {
         if(position==0){
             textViewSTT.setVisibility(View.INVISIBLE);
         }
+        typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/utm_cookies.ttf");
+        textViewSTT.setTypeface(typeface);
+        textViewRecordPlayer.setTypeface(typeface);
+        textViewRecordNumber.setTypeface(typeface);
 //        if(position==0){
 //            typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/utm_helvebold.ttf");
 //        }

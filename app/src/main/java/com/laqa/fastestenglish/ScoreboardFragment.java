@@ -1,6 +1,7 @@
 package com.laqa.fastestenglish;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
 
     ImageButton playFragmentPlayAgain,playFragmentSave;
     TextView playFragmentTextViewScore;
+    Typeface typeface;
 
     public ScoreboardFragment() {
         // Required empty public constructor
@@ -38,6 +40,9 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
 
         playFragmentPlayAgain.setOnTouchListener(this);
         playFragmentSave.setOnTouchListener(this);
+
+        typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/utm_cookies.ttf");
+        playFragmentTextViewScore.setTypeface(typeface);
 
         return view;
     }

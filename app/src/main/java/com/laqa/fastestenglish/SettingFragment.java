@@ -1,6 +1,7 @@
 package com.laqa.fastestenglish;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -17,6 +19,8 @@ import android.widget.Toast;
 public class SettingFragment extends DialogFragment implements View.OnClickListener{
 
     RelativeLayout settingFullScreen, settingFragment;
+    Typeface typeface;
+    TextView menuTextViewEmail;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -30,6 +34,9 @@ public class SettingFragment extends DialogFragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
         settingFullScreen=(RelativeLayout)view.findViewById(R.id.settingFullScreen);
         settingFragment=(RelativeLayout)view.findViewById(R.id.settingFragment);
+        menuTextViewEmail=(TextView)view.findViewById(R.id.menuTextViewEmail);
+        typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/utm_cookies.ttf");
+        menuTextViewEmail.setTypeface(typeface);
         settingFullScreen.setOnClickListener(this);
         settingFragment.setOnClickListener(this);
         return view;

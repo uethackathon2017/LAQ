@@ -1,5 +1,6 @@
 package com.laqa.fastestenglish;
 
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.laqa.fastestenglish.Question.Question;
+
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -25,7 +28,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     RelativeLayout relativeLayoutPlay,playRelaytive1,playRelaytive2,playRelaytive3,playRelaytive4;
     TextView playTextViewScore, playBigText, playTextView1, playTextView2, playTextView3, playTextView4;
     ViewSwitcher playViewSwticher;
-    ImageView playImageViewBig;
+    ImageView playImageViewBig,playImageView1,playImageView2,playImageView3,playImageView4;
     Random r1 = new Random();
     int ranNum1 = r1.nextInt((5-1)+ 1)+1;//Random 1 den 5
 
@@ -37,7 +40,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     private boolean stopProgressBar=false;
     int score = 0;
 
+    Typeface typeface;
+
     FragmentManager fragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +66,26 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         playTextView3=(TextView)findViewById(R.id.playTextView3);
         playTextView4=(TextView)findViewById(R.id.playTextView4);
 
+        playImageView1=(ImageView)findViewById(R.id.playImageView1);
+        playImageView1=(ImageView)findViewById(R.id.playImageView1);
+        playImageView1=(ImageView)findViewById(R.id.playImageView1);
+        playImageView1=(ImageView)findViewById(R.id.playImageView1);
+
+
         playImageViewBig=(ImageView)findViewById(R.id.playImageViewBig);
 
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
         playViewSwticher=(ViewSwitcher)findViewById(R.id.playViewSwticher);
+
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/utm_cookies.ttf");
+
+        playBigText.setTypeface(typeface);
+        playTextView1.setTypeface(typeface);
+        playTextView2.setTypeface(typeface);
+        playTextView3.setTypeface(typeface);
+        playTextView4.setTypeface(typeface);
+        playTextViewScore.setTypeface(typeface);
 
         fragmentManager = getSupportFragmentManager();
 
@@ -115,9 +136,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                 view.getId()== R.id.playRelaytive3 ||
                 view.getId()== R.id.playRelaytive4)&&(showPopUp.get()==false)){
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                view.setBackgroundResource(R.drawable.play_button2);
+                view.setBackgroundResource(R.drawable.play_button_new2);
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                view.setBackgroundResource(R.drawable.play_button1);
+                view.setBackgroundResource(R.drawable.play_button_new1);
             }
         }
         return false;
@@ -194,11 +215,5 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                 }
             }
         }, 5);
-    }
-
-    public void closeFragment(){
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.topin, R.anim.bottomout);
-        fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.scoreboardFragment)).commit();
     }
 }
