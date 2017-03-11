@@ -11,6 +11,11 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.laqa.fastestenglish.Adapter.ListViewAdapter;
+import com.laqa.fastestenglish.Question.Record;
+
+import java.util.ArrayList;
+
 public class RecordActivity extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener{
 
     ListView recordListView;
@@ -23,6 +28,19 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
 
     Animation animation;
     DecelerateInterpolator decelerateInterpolator;
+    ListViewAdapter adapter;
+
+    Record record1 = new Record("LEANHQUAN",23);
+    Record record2 = new Record("VUMINHTUAN",5);
+    Record record3 = new Record("NGUYENCONGHAI",18);
+
+    ArrayList<Record> arrayList= new ArrayList<Record>();
+    Record[] listRecord = {
+            record1,
+            record2,
+            record3
+    } ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +57,12 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
 
         decelerateInterpolator = new DecelerateInterpolator(1.0f);
 
+        arrayList.add(record1);arrayList.add(record2);arrayList.add(record3);
+
+        adapter= new ListViewAdapter(RecordActivity.this,arrayList);
+        recordListView.setAdapter(adapter);
+
+        recordListView.setOnTouchListener(this);
     }
 
     @Override

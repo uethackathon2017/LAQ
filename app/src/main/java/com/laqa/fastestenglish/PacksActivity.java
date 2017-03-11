@@ -5,13 +5,40 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.laqa.fastestenglish.Adapter.GridViewAdapter;
+import com.laqa.fastestenglish.SQLite.GetData;
 
 public class PacksActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener{
 
     ImageButton packsButtonBack;
     GridView packsGridView;
+    GetData getData;
+
+    String[] web = {
+            "Shapes",
+            "Animals",
+            "Lock",
+            "Lock",
+            "Lock",
+            "Lock",
+            "Lock",
+            "Lock"
+    } ;
+    int[] imageId = {
+            R.drawable.shapes,
+            R.drawable.animals,
+            R.drawable.packs_lock,
+            R.drawable.packs_lock,
+            R.drawable.packs_lock,
+            R.drawable.packs_lock,
+            R.drawable.packs_lock,
+            R.drawable.packs_lock
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +52,25 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
 
         packsButtonBack.setOnClickListener(this);
         packsButtonBack.setOnTouchListener(this);
+
+        GridViewAdapter adapter = new GridViewAdapter(this, web, imageId);
+        packsGridView=(GridView)findViewById(R.id.packsGridView);
+        packsGridView.setAdapter(adapter);
+
+        getData= new GetData(this);
+        getData.open();
+
+        packsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                //Toast.makeText(PacksActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+                getData.setCurrentPacks((position+1));
+                view.findViewById(R.id.gridViewStar).setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override

@@ -13,3 +13,5 @@ INSERT INTO tablepacks VALUES (2,"animals");
 
 INSERT INTO table_controller VALUES (1,5,1);
 INSERT INTO table_controller VALUES (2,5,2);
+
+INSERT INTO table_check_packs VALUES(2);

@@ -36,4 +36,9 @@ public class GetData {
         return num;
     }
 
+    public void setCurrentPacks(int newCurrentsPack){
+        String strSQL = "UPDATE "+SQLite.TABLE_CHECK_PACKS+" SET "+SQLite.CURRENT_PACKS+" = "+ newCurrentsPack;
+        sqLiteDatabase.execSQL(strSQL);
+    }
+
 }

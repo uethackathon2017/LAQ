@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:text="Example"
-            android:id="@+id/textView"
+            android:id="@+id/gridViewTextView"
             android:layout_below="@+id/packsGridViewCircle"
             android:layout_alignTop="@+id/packsTextBackground"
             android:gravity="center"
@@ -67,10 +67,13 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:background="@null"
+            android:id="@+id/gridViewStar"
             android:src="@drawable/play_star"
-            android:layout_above="@+id/textView"
+            android:layout_above="@+id/gridViewTextView"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            />
     </RelativeLayout>
 
 
