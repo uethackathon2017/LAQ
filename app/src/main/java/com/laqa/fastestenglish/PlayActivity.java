@@ -57,11 +57,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     public static final String CHOOSE_3 = "ChooseAnswer3";
     public static final String CHOOSE_4 = "ChooseAnswer4";
 
+    public static final String RESTART_PLAY="restart";//RESTART lai activity
+
     private int progrssBarStatus = 100;
 
     int numberQuestionTrue=0;
     int numberQuestion=0;
-    int countWrong = 1;
+    int countWrong = 0;
 
     List<Question> listQuestion;
     Question currentQuestion;
@@ -153,6 +155,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         filter.addAction(CHOOSE_2);
         filter.addAction(CHOOSE_3);
         filter.addAction(CHOOSE_4);
+        filter.addAction(RESTART_PLAY);
         registerReceiver(receiver, filter);
 
         final GetData getData = new GetData(this);
@@ -390,6 +393,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     }
 
+    //Restart Activity
+    public void restart(){
+        finish();
+        startActivity(getIntent());
+    }
+
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -400,9 +409,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     nextQuestion(listQuestion);
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
+                    score++;
+                    playTextViewScore.setText(score+"");
                 }
                 else{
-                    if(countWrong==1){
+                    if(countWrong==2){
                         endGame();
                     }
                     else{
@@ -412,6 +423,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         countWrong++;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
+                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
@@ -420,9 +432,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     nextQuestion(listQuestion);
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
+                    score++;
+                    playTextViewScore.setText(score+"");
                 }
                 else{
-                    if(countWrong==1){
+                    if(countWrong==2){
                         endGame();
                     }
                     else{
@@ -432,6 +446,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         countWrong++;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
+                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
@@ -440,9 +455,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     nextQuestion(listQuestion);
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
+                    score++;
+                    playTextViewScore.setText(score+"");
                 }
                 else{
-                    if(countWrong==1){
+                    if(countWrong==2){
                         endGame();
                     }
                     else{
@@ -452,6 +469,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         countWrong++;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
+                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
@@ -460,9 +478,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     nextQuestion(listQuestion);
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
+                    score++;
+                    playTextViewScore.setText(score+"");
                 }
                 else{
-                    if(countWrong==1){
+                    if(countWrong==2){
                         endGame();
                     }
                     else{
@@ -472,8 +492,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         countWrong++;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
+                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
+            }
+            else if(action.equals(RESTART_PLAY)){
+                restart();
             }
         }
     };

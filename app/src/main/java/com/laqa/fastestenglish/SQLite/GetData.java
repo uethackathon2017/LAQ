@@ -1,11 +1,13 @@
 package com.laqa.fastestenglish.SQLite;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursorDriver;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.laqa.fastestenglish.Question.Question;
+import com.laqa.fastestenglish.Question.Record;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +137,42 @@ public class GetData {
         }
 
         return listQuestion;
+    }
+
+    public boolean themDuLieu(Record rc){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SQLite.TEN_RECORD, rc.getTen());
+        contentValues.put(SQLite.DIEM_RECORD, rc.getDiem());
+        contentValues.put(SQLite.PACK_RECORD, getCurrentPacks());
+        long kiemTra = sqLiteDatabase.insert(SQLite.TABLE_RECORD,null,contentValues);
+        if(kiemTra!=0){
+            return true;
+        }
+        return false;
+    }
+
+    public void xoaDuLieu(int id){
+        String cautruyvan = "DELETE FROM "+SQLite.TABLE_RECORD+" WHERE "+SQLite.ID_RECORD+"="+id+" AND "+SQLite.PACK_RECORD+" = "+getCurrentPacks();
+        sqLiteDatabase.execSQL(cautruyvan);
+    }
+
+    public ArrayList<Record> layRecord(){
+        ArrayList<Record> duLieu = new ArrayList<Record>();
+        String cautruyvan = "SELECT * FROM "+SQLite.TABLE_RECORD+" WHERE "+SQLite.PACK_RECORD+" = "+getCurrentPacks()+" ORDER BY "+SQLite.DIEM_RECORD+" DESC"; // LIMIT 10
+        Cursor cursor = sqLiteDatabase.rawQuery(cautruyvan, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            int id = cursor.getInt(cursor.getColumnIndex(SQLite.ID_RECORD));
+            String ten = cursor.getString(cursor.getColumnIndex(SQLite.TEN_RECORD));
+            int diem = cursor.getInt(cursor.getColumnIndex(SQLite.DIEM_RECORD));
+            Record rc = new Record();
+            rc.setId(id);
+            rc.setTen(ten);
+            rc.setDiem(diem);
+            duLieu.add(rc);
+            cursor.moveToNext();
+        }
+        return duLieu;
     }
 
 }

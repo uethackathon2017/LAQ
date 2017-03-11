@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".PlayActivity" />
         <activity android:name=".RecordActivity" />
-        <activity android:name=".PacksActivity"></activity>
+        <activity android:name=".PacksActivity" />
+        <activity android:name=".InputActivity"></activity>
     </application>
 
 </manifest>

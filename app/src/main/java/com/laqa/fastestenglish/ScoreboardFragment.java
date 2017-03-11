@@ -1,6 +1,7 @@
 package com.laqa.fastestenglish;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,9 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
     ImageButton playFragmentPlayAgain,playFragmentSave;
     TextView playFragmentTextViewScore;
     Typeface typeface;
+    int score,progressBarStatus;
+    TextView wrongOrSlow;
+    Intent intentInput;
 
     public ScoreboardFragment() {
         // Required empty public constructor
@@ -35,6 +39,10 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
         playFragmentSave=(ImageButton)view.findViewById(R.id.playFragmentSave);
         playFragmentTextViewScore=(TextView)view.findViewById(R.id.playFragmentTextViewScore);
 
+        wrongOrSlow=(TextView)view.findViewById(R.id.wrongOrSlow);
+
+        intentInput = new Intent(getActivity(), InputActivity.class);
+
         playFragmentPlayAgain.setOnClickListener(this);
         playFragmentSave.setOnClickListener(this);
 
@@ -43,6 +51,18 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
 
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/utm_cookies.ttf");
         playFragmentTextViewScore.setTypeface(typeface);
+
+        wrongOrSlow.setTypeface(typeface);
+        score = this.getArguments().getInt("score");
+        progressBarStatus = this.getArguments().getInt("time");
+        playFragmentTextViewScore.setText(score+"");
+
+        if(progressBarStatus==0){
+            wrongOrSlow.setText("TOO SLOW");
+        }
+        else{
+            wrongOrSlow.setText("WRONG");
+        }
 
         return view;
     }
@@ -55,7 +75,9 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
                 startActivity(getActivity().getIntent());
                 break;
             case R.id.playFragmentSave:
-
+                intentInput.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intentInput.putExtra("score",score);
+                startActivity(intentInput);
                 break;
         }
     }

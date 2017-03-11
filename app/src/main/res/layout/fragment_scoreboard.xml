@@ -67,6 +67,17 @@
             android:layout_above="@+id/relativeLayout3"
             android:layout_centerHorizontal="true" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrongOrSlow"
+            android:layout_marginTop="5dp"
+            android:textSize="25dp"
+            android:textColor="#FDE25F"
+            android:layout_alignTop="@+id/imageView"
+            android:gravity="center"
+            android:layout_centerHorizontal="true" />
+
 
     </RelativeLayout>
 

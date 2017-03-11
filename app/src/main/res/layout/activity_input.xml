@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_input"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.laqa.fastestenglish.InputActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_for_all"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/saveRecordRelative"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#1689E2"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:src="@drawable/record_top10"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <EditText
+                android:background="@drawable/edittextname"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:hint="Name..."
+                android:textColorHint="@android:color/darker_gray"
+                android:ems="10"
+                android:id="@+id/inputEditText"
+                android:layout_marginTop="98dp"
+                android:textColor="@android:color/darker_gray"
+                android:cursorVisible="false"
+                android:textSize="25sp"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageButton
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:src="@drawable/play_fragment_save"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:id="@+id/inputSaveButton"
+                android:layout_marginTop="24dp"
+                android:layout_below="@+id/inputEditText"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="SCORE"
+                android:id="@+id/inputTextViewScore"
+                android:layout_marginTop="60dp"
+                android:textSize="25sp"
+                android:layout_below="@+id/inputSaveButton"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="100"
+                android:textStyle="bold"
+                android:id="@+id/inputScore"
+                android:textSize="100sp"
+                android:layout_below="@+id/inputTextViewScore"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

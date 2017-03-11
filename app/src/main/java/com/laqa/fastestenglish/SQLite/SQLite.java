@@ -34,9 +34,16 @@ public class SQLite extends SQLiteOpenHelper{
     public static String POSITION_SETUP = "position";
     public static String PACKS_SETUP ="pack";
 
+    //Chọn packs nào
     public static String TABLE_CHECK_PACKS = "CheckPacks";
     public static String CURRENT_PACKS = "current";
 
+    //Lưu thông tin kỷ lục
+    public static final String TABLE_RECORD="Top_Record";
+    public static final String ID_RECORD="id_record";
+    public static final String TEN_RECORD="ten_record";
+    public static final String DIEM_RECORD="diem_record";
+    public static final String PACK_RECORD="pack_record";
 
     Context ctx;
 
@@ -64,6 +71,14 @@ public class SQLite extends SQLiteOpenHelper{
 
         createTable = "CREATE TABLE " +TABLE_CHECK_PACKS+ " ( "
                 + CURRENT_PACKS + " INTEGER"
+                + ");";
+        db.execSQL(createTable);
+
+        createTable = "CREATE TABLE " +TABLE_RECORD+ " ( "
+                + ID_RECORD +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TEN_RECORD + " TEXT,"
+                + DIEM_RECORD +" INTEGER,"
+                + PACK_RECORD +" INTEGER"
                 + ");";
         db.execSQL(createTable);
 

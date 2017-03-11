@@ -10,9 +10,11 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.laqa.fastestenglish.Adapter.ListViewAdapter;
 import com.laqa.fastestenglish.Question.Record;
+import com.laqa.fastestenglish.SQLite.GetData;
 
 import java.util.ArrayList;
 
@@ -25,21 +27,25 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     float distance;
     boolean listViewTop=true;
     boolean listViewBottom=true;
+    int score=0;
+    GetData getData;
 
     Animation animation;
     DecelerateInterpolator decelerateInterpolator;
     ListViewAdapter adapter;
 
-    Record record1 = new Record("LEANHQUAN",23);
-    Record record2 = new Record("VUMINHTUAN",5);
-    Record record3 = new Record("NGUYENCONGHAI",18);
+//    Record record1 = new Record("LEANHQUAN",23);
+//    Record record2 = new Record("VUMINHTUAN",5);
+//    Record record3 = new Record("NGUYENCONGHAI",18);
+//
+//    ArrayList<Record> arrayList= new ArrayList<Record>();
+//    Record[] listRecord = {
+//            record1,
+//            record2,
+//            record3
+//    } ;
 
-    ArrayList<Record> arrayList= new ArrayList<Record>();
-    Record[] listRecord = {
-            record1,
-            record2,
-            record3
-    } ;
+    ArrayList<Record> duLieu= new ArrayList<Record>();
 
 
     @Override
@@ -55,16 +61,28 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         recordButtonBack.setOnTouchListener(this);
         recordButtonBack.setOnClickListener(this);
 
-
+        getData= new GetData(RecordActivity.this);
+        getData.open();
+        duLieu=getData.layRecord();
 
         decelerateInterpolator = new DecelerateInterpolator(1.0f);
 
-        arrayList.add(record1);arrayList.add(record2);arrayList.add(record3);
+        //arrayList.add(record1);arrayList.add(record2);arrayList.add(record3);
 
-        adapter= new ListViewAdapter(RecordActivity.this,arrayList);
+        adapter= new ListViewAdapter(RecordActivity.this,duLieu);
         recordListView.setAdapter(adapter);
 
         recordListView.setOnTouchListener(this);
+
+        Bundle bd=getIntent().getExtras();
+        if(bd!=null) {
+            score = bd.getInt("score");
+        }
+        else{
+            score=0;
+        }
+
+        //Toast.makeText(this, duLieu.get(0).getTen(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -139,5 +157,10 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.leftin, R.anim.rightout);
+    }
+
+    protected void onDestroy() {
+        getData.close();
+        super.onDestroy();
     }
 }
