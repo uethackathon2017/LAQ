@@ -98,9 +98,11 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
             case R.id.recordButtonBack:
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    recordButtonBack.animate().setDuration(100);
                     recordButtonBack.animate().scaleX(1.2f);
                     recordButtonBack.animate().scaleY(1.2f);
                 } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    recordButtonBack.animate().setDuration(100);
                     recordButtonBack.animate().scaleX(1.0f);
                     recordButtonBack.animate().scaleY(1.0f);
                 }

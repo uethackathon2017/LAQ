@@ -175,4 +175,16 @@ public class GetData {
         return duLieu;
     }
 
+    public int countData(){
+        int count=0;
+        String cautruyvan = "SELECT * FROM "+SQLite.TABLE_English1000 +" WHERE " + SQLite.PACKS_NUMBER +" = "+getCurrentPacks();
+        Cursor cursor = sqLiteDatabase.rawQuery(cautruyvan,null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            count++;
+            cursor.moveToNext();
+        }
+        return count;
+    }
+
 }

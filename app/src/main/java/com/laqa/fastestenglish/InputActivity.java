@@ -68,7 +68,7 @@ public class InputActivity extends AppCompatActivity implements View.OnTouchList
                 rc.setDiem(score);
 
                 if (getData.themDuLieu(rc) == true) {
-                    Toast.makeText(InputActivity.this, "THEM THANH CONG", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(InputActivity.this, "THEM THANH CONG", Toast.LENGTH_SHORT).show();
                     DuLieu = getData.layRecord();
                     if (DuLieu.size() > 10) {
                         getData.xoaDuLieu(DuLieu.get(10).getId());

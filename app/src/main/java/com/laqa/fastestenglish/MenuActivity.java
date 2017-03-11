@@ -52,7 +52,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
 
         getData = new GetData(this);
         getData.open();
-        Toast.makeText(this, "Current Packs: "+getData.getCurrentPacks(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Current Packs: "+getData.getCurrentPacks(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Count: "+getData.countData(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -63,9 +64,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
             view.getId()== R.id.menuButtonSetting){
 
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                view.animate().setDuration(150);
                 view.animate().scaleX(1.2f);
                 view.animate().scaleY(1.2f);
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                view.animate().setDuration(150);
                 view.animate().scaleX(1.0f);
                 view.animate().scaleY(1.0f);
             }

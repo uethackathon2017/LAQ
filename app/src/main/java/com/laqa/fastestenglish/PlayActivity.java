@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -45,6 +46,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     private ProgressBar progressBar;
     private boolean stopProgressBar=false;
     int score = 0;
+    boolean winOrLose=false;//Thua
+
+    private MediaPlayer song2;
+    private MediaPlayer song;
 
     Typeface typeface;
 
@@ -101,6 +106,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         playViewSwticher=(ViewSwitcher)findViewById(R.id.playViewSwticher);
 
         typeface = Typeface.createFromAsset(getAssets(), "fonts/utm_cookies.ttf");
+
+        song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+        song = MediaPlayer.create(PlayActivity.this, R.raw.win);
 
         playBigText.setTypeface(typeface);
         playTextView1.setTypeface(typeface);
@@ -209,6 +217,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public void onDestroy() {
+        song.reset();
+        song2.reset();
         this.unregisterReceiver(receiver);
         super.onDestroy();
     }
@@ -227,6 +237,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                 Bundle bundleScore = new Bundle();
                 bundleScore.putInt("score", score);
                 bundleScore.putInt("time", progrssBarStatus);
+                bundleScore.putBoolean("winOrLose",winOrLose);
 
                 Fragment scoreboardFragment = new ScoreboardFragment();
 
@@ -376,8 +387,16 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         getData.open();
         if(numberQuestion>listQuestion.size()){
             if(listQuestion.size()<=100) {
-                Toast.makeText(this, "Increase position", Toast.LENGTH_SHORT).show();
-                getData.updatePosition();
+                //Toast.makeText(this, "Increase position", Toast.LENGTH_SHORT).show();
+                if (getData.getPosition() < getData.countData()){
+                    getData.updatePosition();
+                }
+                if (score == getData.countData()){
+                    Toast.makeText(this, "You WIN", Toast.LENGTH_SHORT).show();
+                    winOrLose=true;
+                    showScoreboard();
+                    stopProgressBar=true;
+                }
                 //Toast.makeText(this, "id of next question: " + (getData.getPosition()), Toast.LENGTH_SHORT).show();
                 Question questionAdd = getData.getQuestion(getData.getPosition());
                 listQuestion.add(questionAdd);
@@ -393,12 +412,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     }
 
-    //Restart Activity
-    public void restart(){
-        finish();
-        startActivity(getIntent());
-    }
-
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -410,7 +423,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
                     score++;
-                    playTextViewScore.setText(score+"");
+                    if(song!=null){
+                        song.stop();
+                        song.release();
+                    }
+                    song = MediaPlayer.create(PlayActivity.this, R.raw.win);
+                    song.start();
+                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
                 }
                 else{
                     if(countWrong==2){
@@ -421,9 +440,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
                         countWrong++;
+                        score--;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
-                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
@@ -433,7 +452,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
                     score++;
-                    playTextViewScore.setText(score+"");
+                    if(song!=null){
+                        song.stop();
+                        song.release();
+                    }
+                    song = MediaPlayer.create(PlayActivity.this, R.raw.win);
+                    song.start();
+                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
                 }
                 else{
                     if(countWrong==2){
@@ -444,9 +469,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
                         countWrong++;
+                        score--;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
-                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
@@ -456,7 +481,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
                     score++;
-                    playTextViewScore.setText(score+"");
+                    if(song!=null){
+                        song.stop();
+                        song.release();
+                    }
+                    song = MediaPlayer.create(PlayActivity.this, R.raw.win);
+                    song.start();
+                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
                 }
                 else{
                     if(countWrong==2){
@@ -467,9 +498,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
                         countWrong++;
+                        score--;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
-                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
@@ -479,7 +510,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                    MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.win);
 //                    song.start();
                     score++;
-                    playTextViewScore.setText(score+"");
+                    if(song!=null){
+                        song.stop();
+                        song.release();
+                    }
+                    song = MediaPlayer.create(PlayActivity.this, R.raw.win);
+                    song.start();
+                    if(stopProgressBar==false){playTextViewScore.setText(score+"");}
                 }
                 else{
                     if(countWrong==2){
@@ -490,13 +527,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
                         countWrong++;
+                        score--;
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
-                        relativeLayoutPlay.startAnimation(shake);
                     }
                 }
             }
-            else if(action.equals(RESTART_PLAY)){
+            else if(action.equals(RESTART_PLAY)==true){
                 restart();
             }
         }
@@ -505,7 +542,18 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     public void endGame(){
         showScoreboard();
         stopProgressBar=true;
+        if(song2!=null){
+            song2.stop();
+            song2.release();
+        }
+        song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
+        song2.start();
     }
 
+    //Restart Activity
+    public void restart(){
+        finish();
+        startActivity(getIntent());
+    }
 
 }

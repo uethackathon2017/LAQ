@@ -24,6 +24,7 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
     int score,progressBarStatus;
     TextView wrongOrSlow;
     Intent intentInput;
+    boolean winOrLose;
 
     public ScoreboardFragment() {
         // Required empty public constructor
@@ -55,13 +56,18 @@ public class ScoreboardFragment extends Fragment implements View.OnTouchListener
         wrongOrSlow.setTypeface(typeface);
         score = this.getArguments().getInt("score");
         progressBarStatus = this.getArguments().getInt("time");
+        winOrLose = this.getArguments().getBoolean("winOrLose");
         playFragmentTextViewScore.setText(score+"");
 
-        if(progressBarStatus==0){
-            wrongOrSlow.setText("TOO SLOW");
+        if(winOrLose==true){
+            wrongOrSlow.setText("GOODJOB!!!!");
         }
-        else{
-            wrongOrSlow.setText("WRONG");
+        else {
+            if (progressBarStatus == 0) {
+                wrongOrSlow.setText("TOO SLOW");
+            } else {
+                wrongOrSlow.setText("WRONG");
+            }
         }
 
         return view;
