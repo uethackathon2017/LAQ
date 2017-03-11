@@ -50,7 +50,7 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packs);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        overridePendingTransition(R.anim.rightin, R.anim.leftout);
+        overridePendingTransition(R.anim.leftin, R.anim.rightout);
 
         packsButtonBack=(ImageButton)findViewById(R.id.packsButtonBack);
         packsGridView=(GridView)findViewById(R.id.packsGridView);
@@ -132,6 +132,6 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.leftin, R.anim.rightout);
+        overridePendingTransition(R.anim.rightin, R.anim.leftout);
     }
 }
