@@ -45,6 +45,11 @@ public class SQLite extends SQLiteOpenHelper{
     public static final String DIEM_RECORD="diem_record";
     public static final String PACK_RECORD="pack_record";
 
+    public static final String TABLE_SOUND="Table_Sound";
+    public static final String ID_SOUND="id_sound";
+    public static final String MUSIC_ON="music_on";
+    public static final String SOUND_ON="sound_on";
+
     Context ctx;
 
     public SQLite(Context context) {
@@ -79,6 +84,13 @@ public class SQLite extends SQLiteOpenHelper{
                 + TEN_RECORD + " TEXT,"
                 + DIEM_RECORD +" INTEGER,"
                 + PACK_RECORD +" INTEGER"
+                + ");";
+        db.execSQL(createTable);
+
+        createTable = "CREATE TABLE " +TABLE_SOUND+ " ( "
+                + ID_SOUND +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MUSIC_ON + " INTEGER,"
+                + SOUND_ON +" INTEGER"
                 + ");";
         db.execSQL(createTable);
 

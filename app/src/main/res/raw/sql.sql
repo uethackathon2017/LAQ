@@ -1,3 +1,5 @@
+INSERT INTO Table_Sound VALUES (1,1,1);
+
 INSERT INTO WordsDatabase VALUES (1,"circle",1,1);
 INSERT INTO WordsDatabase VALUES (2,"diamond",2,1);
 INSERT INTO WordsDatabase VALUES (3,"heart",3,1);

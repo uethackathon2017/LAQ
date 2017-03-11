@@ -187,50 +187,50 @@ public class GetData {
         return count;
     }
 
-//    public int getMusic(){
-//        int music=1;
-//        String getPosition = "SELECT "+SQLite.MUSIC_ON+" FROM "+SQLite.TABLE_SOUND;
-//        Cursor cursor = sqLiteDatabase.rawQuery(getPosition,null);
-//        cursor.moveToFirst();
-//        if(cursor.getCount()>=1){
-//            music =cursor.getInt(cursor.getColumnIndex(SQLite.MUSIC_ON));
-//        }
-//        return music;
-//    }
+    public int getMusic(){
+        int music=1;
+        String getPosition = "SELECT "+SQLite.MUSIC_ON+" FROM "+SQLite.TABLE_SOUND+" WHERE "+SQLite.ID_SOUND+" = 1";
+        Cursor cursor = sqLiteDatabase.rawQuery(getPosition,null);
+        cursor.moveToFirst();
+        if(cursor.getCount()>=1){
+            music =cursor.getInt(cursor.getColumnIndex(SQLite.MUSIC_ON));
+        }
+        return music;
+    }
+
+
+
+    public int getSound(){
+        int sound=1;
+        String getPosition = "SELECT "+SQLite.SOUND_ON+" FROM "+SQLite.TABLE_SOUND+" WHERE "+SQLite.ID_SOUND+" = 1";
+        Cursor cursor = sqLiteDatabase.rawQuery(getPosition,null);
+        cursor.moveToFirst();
+        if(cursor.getCount()>=1){
+            sound =cursor.getInt(cursor.getColumnIndex(SQLite.SOUND_ON));
+        }
+        return sound;
+    }
 //
+    public void changeMusic(){
+        if(getMusic()==1){
+            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.MUSIC_ON+" = 0";
+            sqLiteDatabase.execSQL(strSQL);
+        }
+        else{
+            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.MUSIC_ON+" = 1";
+            sqLiteDatabase.execSQL(strSQL);
+        }
+    }
 //
-//
-//    public int getSound(){
-//        int sound=1;
-//        String getPosition = "SELECT "+SQLite.SOUND_ON+" FROM "+SQLite.TABLE_SOUND;
-//        Cursor cursor = sqLiteDatabase.rawQuery(getPosition,null);
-//        cursor.moveToFirst();
-//        if(cursor.getCount()>=1){
-//            sound =cursor.getInt(cursor.getColumnIndex(SQLite.SOUND_ON));
-//        }
-//        return sound;
-//    }
-//
-//    public void changeMusic(){
-//        if(getMusic()==1){
-//            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.MUSIC_ON+" = 0";
-//            sqLiteDatabase.execSQL(strSQL);
-//        }
-//        else{
-//            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.MUSIC_ON+" = 1";
-//            sqLiteDatabase.execSQL(strSQL);
-//        }
-//    }
-//
-//    public void changeSound(){
-//        if(getSound()==1){
-//            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.SOUND_ON+" = 0";
-//            sqLiteDatabase.execSQL(strSQL);
-//        }
-//        else{
-//            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.SOUND_ON+" = 1";
-//            sqLiteDatabase.execSQL(strSQL);
-//        }
-//    }
+    public void changeSound(){
+        if(getSound()==1){
+            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.SOUND_ON+" = 0";
+            sqLiteDatabase.execSQL(strSQL);
+        }
+        else{
+            String strSQL = "UPDATE "+SQLite.TABLE_SOUND+" SET "+SQLite.SOUND_ON+" = 1";
+            sqLiteDatabase.execSQL(strSQL);
+        }
+    }
 
 }

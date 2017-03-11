@@ -48,33 +48,35 @@ public class SettingFragment extends DialogFragment implements View.OnClickListe
         switch1=(Switch)view.findViewById(R.id.switch1);
         switch2=(Switch)view.findViewById(R.id.switch2);
         getData = new GetData(getActivity());
+        getData.open();
 
-//        if(getData.getMusic()==1){
-//            switch1.setChecked(true);
-//        }
-//        else{
-//            switch1.setChecked(false);
-//        }
-//
-//        if(getData.getSound()==1){
-//            switch1.setChecked(true);
-//        }
-//        else{
-//            switch1.setChecked(false);
-//        }
-//
-//        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                getData.changeMusic();
-//            }
-//        });
-//        switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                getData.changeSound();
-//            }
-//        });
+        if(getData.getMusic()==1){
+            switch1.setChecked(true);
+        }
+        else{
+            switch1.setChecked(false);
+        }
+
+        if(getData.getSound()==1){
+            switch2.setChecked(true);
+        }
+        else{
+            switch2.setChecked(false);
+        }
+
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                getData.changeMusic();
+            }
+        });
+        switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                getData.changeSound();
+            }
+        });
+
         return view;
     }
 

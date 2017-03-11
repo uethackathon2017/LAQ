@@ -54,7 +54,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnTouchListe
         getData.open();
         //Toast.makeText(this, "Current Packs: "+getData.getCurrentPacks(), Toast.LENGTH_SHORT).show();
         //Toast.makeText(this, "Count: "+getData.countData(), Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, getData.getMusic(), Toast.LENGTH_SHORT).show();
+//        getData.changeMusic();
+//        Toast.makeText(this, getData.getMusic()+"", Toast.LENGTH_SHORT).show();
     }
 
     @Override

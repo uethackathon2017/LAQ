@@ -72,8 +72,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     int numberQuestion=0;
     int countWrong = 0;
 
-    boolean sound=true;
-    boolean music=true;
+    boolean sound;
+    boolean music;
+
+    Handler timerHandler;
+    Runnable runnable;
 
     List<Question> listQuestion;
     Question currentQuestion;
@@ -112,18 +115,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
         typeface = Typeface.createFromAsset(getAssets(), "fonts/utm_cookies.ttf");
 
-//        if(getData.getSound()==1) {
-//            sound=true;
-//        }
-//        else{
-//            sound=false;
-//        }
-//        if(getData.getMusic()==1) {
-//            music=true;
-//        }
-//        else{
-//            music=false;
-//        }
+        getData = new GetData(this);
+        getData.open();
+
+        if(getData.getSound()==1) {
+            sound=true;
+        }
+        else{
+            sound=false;
+        }
+        if(getData.getMusic()==1) {
+            music=true;
+        }
+        else{
+            music=false;
+        }
 
         song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
         song = MediaPlayer.create(PlayActivity.this, R.raw.win);
@@ -187,8 +193,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         filter.addAction(RESTART_PLAY);
         registerReceiver(receiver, filter);
 
-        getData = new GetData(this);
-        getData.open();
         listQuestion = getData.getAll();
         //Toast.makeText(this, String.valueOf(getData.getPosition()), Toast.LENGTH_SHORT).show();
         nextQuestion(listQuestion);
@@ -241,6 +245,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         song.reset();
         song2.reset();
         song3.reset();
+        timerHandler.removeCallbacks(runnable);
         this.unregisterReceiver(receiver);
         super.onDestroy();
     }
@@ -292,9 +297,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     public void chayTiengTrinh() {
-        final Handler timerHandler = new Handler();
+        timerHandler = new Handler();
 
-        timerHandler.postDelayed(new Runnable() {
+        runnable = new Runnable() {
             @Override
             public void run() {
                 if (progrssBarStatus > 0 && stopProgressBar == false) {
@@ -307,7 +312,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     showScoreboard();
                 }
             }
-        }, 5);
+        };
+        timerHandler.postDelayed(runnable, 5);
     }
 
 
