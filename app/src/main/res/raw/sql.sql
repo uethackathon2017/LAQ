@@ -8,4 +8,7 @@ INSERT INTO WordsDatabase VALUES (7,"square",7,1);
 INSERT INTO WordsDatabase VALUES (8,"star",8,1);
 INSERT INTO WordsDatabase VALUES (9,"triangle",9,1);
 
-INSERT INTO Setup VALUES (1,5,0,0);
+INSERT INTO Setup VALUES (1,5,1);
+INSERT INTO Setup VALUES (2,1,2);
+
+INSERT INTO CheckPacks VALUES(1);

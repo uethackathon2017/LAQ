@@ -65,7 +65,7 @@ public class GridViewAdapter extends BaseAdapter {
             gridViewTextView.setTypeface(typeface);
             getData=new GetData(mContext);
             getData.open();
-            if((position+1)==1){ //2 là số gói mở đu
+            if((position+1)==getData.getCurrentPacks()){
                 gridViewStar.setVisibility(View.VISIBLE);
             }
             else{
@@ -74,3 +74,6 @@ public class GridViewAdapter extends BaseAdapter {
         return grid;
     }
 }
+
+
+

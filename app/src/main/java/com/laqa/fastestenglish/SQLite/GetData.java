@@ -31,33 +31,32 @@ public class GetData {
         sqLite.close();
     }
 
-//    public int getCurrentPacks(){
-//        int num = 1;
-//        String getCurrentPacks = "SELECT "+SQLite.CURRENT_PACKS+" FROM "+SQLite.TABLE_CHECK_PACKS;
-//        Cursor cursor = sqLiteDatabase.rawQuery(getCurrentPacks,null);
-//        cursor.moveToFirst();
-//        if(cursor.getCount()>=1){
-//            num = cursor.getInt(cursor.getColumnIndex(SQLite.CURRENT_PACKS));
-//        }
-//        return num;
-//    }
-//
-//    public void setCurrentPacks(int newCurrentsPack){
-//        String strSQL = "UPDATE "+SQLite.TABLE_CHECK_PACKS+" SET "+SQLite.CURRENT_PACKS+" = "+ newCurrentsPack;
-//        sqLiteDatabase.execSQL(strSQL);
-//    }
+    public int getCurrentPacks(){
+        int num = 1;
+        String getCurrentPacks = "SELECT "+SQLite.CURRENT_PACKS+" FROM "+SQLite.TABLE_CHECK_PACKS;
+        Cursor cursor = sqLiteDatabase.rawQuery(getCurrentPacks,null);
+        cursor.moveToFirst();
+        if(cursor.getCount()>=1){
+            num = cursor.getInt(cursor.getColumnIndex(SQLite.CURRENT_PACKS));
+        }
+        return num;
+    }
+
+    public void setCurrentPacks(int newCurrentsPack){
+        String strSQL = "UPDATE "+SQLite.TABLE_CHECK_PACKS+" SET "+SQLite.CURRENT_PACKS+" = "+ newCurrentsPack;
+        sqLiteDatabase.execSQL(strSQL);
+    }
 
     public void updatePosition(){
-        String strSQL = "UPDATE "+SQLite.TABLE_SETUP+" SET "+SQLite.POSITION_SETUP+" = "+ (getPosition()+1);
+        String strSQL = "UPDATE "+SQLite.TABLE_SETUP+" SET "+SQLite.POSITION_SETUP+" = "+ (getPosition()+1)+" WHERE "+SQLite.PACKS_SETUP+" = "+getCurrentPacks();
         sqLiteDatabase.execSQL(strSQL);
     }
 
     public Question getQuestion(int id){
-        String get = "SELECT * FROM "+SQLite.TABLE_English1000+" WHERE "+SQLite.ID_English1000+" = "+id;
+        String get = "SELECT * FROM "+SQLite.TABLE_English1000+" WHERE "+SQLite.ID_English1000+" = "+id +" AND "+SQLite.PACKS_NUMBER+ "= "+getCurrentPacks();
         Cursor cursor = sqLiteDatabase.rawQuery(get,null);
         cursor.moveToFirst();
         String eng =cursor.getString(cursor.getColumnIndex(SQLite.English_English1000));
-        int wrong =cursor.getInt(cursor.getColumnIndex(SQLite.WRONG_ENGLISH1000));
         Question questionNew = new Question();
         questionNew.setId(id);
         questionNew.setEnglish(eng);
@@ -65,7 +64,7 @@ public class GetData {
     }
 
     public int getPosition(){
-        String getPosition = "SELECT "+SQLite.POSITION_SETUP+" FROM "+SQLite.TABLE_SETUP;
+        String getPosition = "SELECT * FROM "+SQLite.TABLE_SETUP +" WHERE " +SQLite.PACKS_SETUP+" = "+getCurrentPacks();
         Cursor cursor = sqLiteDatabase.rawQuery(getPosition,null);
         cursor.moveToFirst();
         int position =cursor.getInt(cursor.getColumnIndex(SQLite.POSITION_SETUP));
@@ -84,7 +83,7 @@ public class GetData {
                 random = r.nextInt(position+1 - 1) + 1;
             }while(random==randomNumber[0] || random==randomNumber[1] || random==randomNumber[2] || random == id);
             randomNumber[i] = random;
-            String getTrue = "SELECT * FROM " + SQLite.TABLE_English1000 + " WHERE " + SQLite.ID_English1000 + " = " + random;
+            String getTrue = "SELECT * FROM " + SQLite.TABLE_English1000 + " WHERE " + SQLite.ID_English1000 + " = " + random+" AND "+ SQLite.PACKS_NUMBER+" = "+getCurrentPacks();
             Cursor cursor = sqLiteDatabase.rawQuery(getTrue, null);
             cursor.moveToFirst();
             Question questionNew = new Question();
@@ -117,7 +116,6 @@ public class GetData {
             int id = cursor.getInt(cursor.getColumnIndex(SQLite.ID_English1000));
             String english = cursor.getString(cursor.getColumnIndex(SQLite.English_English1000));
             int newId = cursor.getInt(cursor.getColumnIndex(SQLite.NEW_ID_ENGLISH1000));
-            int wrong = cursor.getInt(cursor.getColumnIndex(SQLite.WRONG_ENGLISH1000));
             Question question = new Question();
             question.setId(id);
             question.setEnglish(english);

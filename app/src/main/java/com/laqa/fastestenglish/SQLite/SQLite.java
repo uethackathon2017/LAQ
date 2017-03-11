@@ -19,17 +19,24 @@ import java.io.InputStreamReader;
 public class SQLite extends SQLiteOpenHelper{
     public static String DB_English1000 = "Database1000";
     public static int DB_VERSION = 1;
+
+    //Chứa đống từ
     public static String TABLE_English1000 = "WordsDatabase";
     public static String ID_English1000 = "id";
     public static String English_English1000 = "english";
     public static String NEW_ID_ENGLISH1000 = "newid";
-    public static String WRONG_ENGLISH1000 = "wrong";
+    public static String PACKS_NUMBER = "packsNumber";
 
+
+    //Chứa các thông tin cài đặt packs
     public static String TABLE_SETUP = "Setup";
     public static String ID_SETUP = "id";
     public static String POSITION_SETUP = "position";
-    public static String PAUSE_SETUP = "pause";
-    public static String SCORE_SETUP = "score";
+    public static String PACKS_SETUP ="pack";
+
+    public static String TABLE_CHECK_PACKS = "CheckPacks";
+    public static String CURRENT_PACKS = "current";
+
 
     Context ctx;
 
@@ -44,17 +51,22 @@ public class SQLite extends SQLiteOpenHelper{
                 + ID_English1000 +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + English_English1000 + " TEXT,"
                 + NEW_ID_ENGLISH1000 + " INTEGER,"
-                + WRONG_ENGLISH1000 + " INTEGER"
+                + PACKS_NUMBER + " INTEGER"
                 + ");";
         db.execSQL(createTable);
 
-        String createTable2 = "CREATE TABLE " +TABLE_SETUP+ " ( "
+        createTable = "CREATE TABLE " +TABLE_SETUP+ " ( "
                 + ID_SETUP +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + POSITION_SETUP + " INTEGER,"
-                + PAUSE_SETUP + " INTEGER,"
-                + SCORE_SETUP + " INTEGER"
+                + PACKS_SETUP +" INTEGER"
                 + ");";
-        db.execSQL(createTable2);
+        db.execSQL(createTable);
+
+        createTable = "CREATE TABLE " +TABLE_CHECK_PACKS+ " ( "
+                + CURRENT_PACKS + " INTEGER"
+                + ");";
+        db.execSQL(createTable);
+
         readAndExecuteSQLScript(db, ctx, R.raw.sql);
     }
 

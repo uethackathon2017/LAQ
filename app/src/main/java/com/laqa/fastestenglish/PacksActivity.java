@@ -67,10 +67,10 @@ public class PacksActivity extends AppCompatActivity implements View.OnClickList
                                     int position, long id) {
 
                 packsGridView.findViewById(R.id.gridViewStar).setVisibility(View.INVISIBLE);
-                //Toast.makeText(PacksActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(PacksActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
                 if(position<2) { //2 là số lượng gói mở ra
                     view.findViewById(R.id.gridViewStar).setVisibility(View.VISIBLE);
-                    //getData.setCurrentPacks(position + 1);
+                    getData.setCurrentPacks(position + 1);
                     adapter.notifyDataSetChanged();
                 }
             }
