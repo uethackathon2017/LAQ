@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,6 +29,7 @@ import com.laqa.fastestenglish.Question.Question;
 import com.laqa.fastestenglish.SQLite.GetData;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -80,6 +82,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
     List<Question> listQuestion;
     Question currentQuestion;
+
+    TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +198,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         listQuestion = getData.getAll();
         //Toast.makeText(this, String.valueOf(getData.getPosition()), Toast.LENGTH_SHORT).show();
         nextQuestion(listQuestion);
+
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+            }
+        });
+
+
     }
 
     @Override
@@ -307,7 +319,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                 if (progrssBarStatus > 0 && stopProgressBar == false) {
                     progrssBarStatus = progrssBarStatus - 1;// -2
                     progressBar.setProgress(progrssBarStatus);
-                    timerHandler.postDelayed(this, 30);
+                    timerHandler.postDelayed(this, 50);
                 }
 
                 if (progrssBarStatus == 0) {
@@ -347,24 +359,28 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 
             switch (randomNumber2){
                 case 1 :
+                    playBigText.setText(question.getEnglish());
                     playTextView1.setText(question.getEnglish());
                     playTextView2.setText(wrongAnswer[0].getEnglish());
                     playTextView3.setText(wrongAnswer[1].getEnglish());
                     playTextView4.setText(wrongAnswer[2].getEnglish());
                     break;
                 case 2:
+                    playBigText.setText(question.getEnglish());
                     playTextView1.setText(wrongAnswer[0].getEnglish());
                     playTextView2.setText(question.getEnglish());
                     playTextView3.setText(wrongAnswer[1].getEnglish());
                     playTextView4.setText(wrongAnswer[2].getEnglish());
                     break;
                 case 3:
+                    playBigText.setText(question.getEnglish());
                     playTextView1.setText(wrongAnswer[0].getEnglish());
                     playTextView2.setText(wrongAnswer[1].getEnglish());
                     playTextView3.setText(question.getEnglish());
                     playTextView4.setText(wrongAnswer[2].getEnglish());
                     break;
                 case 4:
+                    playBigText.setText(question.getEnglish());
                     playTextView1.setText(wrongAnswer[0].getEnglish());
                     playTextView2.setText(wrongAnswer[1].getEnglish());
                     playTextView3.setText(wrongAnswer[2].getEnglish());
@@ -473,13 +489,19 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song2.release();
                     }
                     song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
-                    if(sound==true) {
-                        song2.start();
-                    }
                     if(countWrong==2){
                         endGame();
+                        if(sound==true) {
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                     else{
+                        if(sound==true) {
+                            song2.start();
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                         //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
@@ -513,13 +535,20 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song2.release();
                     }
                     song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
-                    if(sound==true) {
-                        song2.start();
-                    }
+
                     if(countWrong==2){
                         endGame();
+                        if(sound==true) {
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                     else{
+                        if(sound==true) {
+                            song2.start();
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                         //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
@@ -553,13 +582,19 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                         song2.release();
                     }
                     song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
-                    if(sound==true) {
-                        song2.start();
-                    }
                     if(countWrong==2){
                         endGame();
+                        if(sound==true) {
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                     else{
+                        if(sound==true) {
+                            song2.start();
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                         //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
@@ -595,11 +630,22 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
                     if(sound==true) {
                         song2.start();
+                        if(sound==true) {
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                     if(countWrong==2){
                         endGame();
+                        textToSpeech.setLanguage(Locale.UK);
+                        textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
                     }
                     else{
+                        if(sound==true) {
+                            song2.start();
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                         //Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
 //                        MediaPlayer song = MediaPlayer.create(getActivity(), R.raw.lose2);
 //                        song.start();
