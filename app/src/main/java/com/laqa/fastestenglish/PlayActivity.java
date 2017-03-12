@@ -138,6 +138,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
         song2 = MediaPlayer.create(PlayActivity.this, R.raw.lose2);
         song = MediaPlayer.create(PlayActivity.this, R.raw.win);
         song3 = MediaPlayer.create(PlayActivity.this, R.raw.music2);
+        song3.setLooping(true);
         if(music==true) {
             song3.start();
         }

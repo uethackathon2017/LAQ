@@ -52,7 +52,7 @@ public class GetData {
     }
 
     public void updatePosition(){
-        String strSQL = "UPDATE "+SQLite.TABLE_SETUP+" SET "+SQLite.POSITION_SETUP+" = "+ (getPosition()+3)+" WHERE "+SQLite.PACKS_SETUP+" = "+getCurrentPacks();
+        String strSQL = "UPDATE "+SQLite.TABLE_SETUP+" SET "+SQLite.POSITION_SETUP+" = "+ (getPosition()+1)+" WHERE "+SQLite.PACKS_SETUP+" = "+getCurrentPacks();
         sqLiteDatabase.execSQL(strSQL);
     }
 
