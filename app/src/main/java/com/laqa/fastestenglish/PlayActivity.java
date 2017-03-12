@@ -508,6 +508,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        song.start();
                         countWrong++;
                         score--;
+                        playTextViewScore.setText(score+"");
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
                     }
@@ -555,6 +556,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        song.start();
                         countWrong++;
                         score--;
+                        playTextViewScore.setText(score+"");
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
                     }
@@ -601,6 +603,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        song.start();
                         countWrong++;
                         score--;
+                        playTextViewScore.setText(score+"");
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
                     }
@@ -654,6 +657,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
 //                        song.start();
                         countWrong++;
                         score--;
+                        playTextViewScore.setText(score+"");
                         listQuestion.add(currentQuestion);
                         nextQuestion(listQuestion);
                     }
