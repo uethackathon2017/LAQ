@@ -1,9 +1,9 @@
-# Project
+# Fastest English
+![icon](http://www.mrsul.tk/uethackathon2017/192.png)
+
+* Team LAQ
+
 * Contest UET Hackathon Open 2017
-
-* LAQ *
-
-![Image of Mrsul](http://www.mrsul.tk/uethackathon2017/192.png)
 
 * Description: Simple game to learn vocabulary fast, easy and fun.
 
