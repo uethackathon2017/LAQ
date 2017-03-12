@@ -8,14 +8,13 @@
 * Description: Simple game to learn vocabulary fast, easy and fun.
 
 ## Screenshot
-![menu](http://www.mrsul.tk/uethackathon2017/menu.jpg)
-![packs](http://www.mrsul.tk/uethackathon2017/packs.jpg)
-![play1](http://www.mrsul.tk/uethackathon2017/play1.jpg)
-![play2](http://www.mrsul.tk/uethackathon2017/play2.jpg)
-![scoreboard](http://www.mrsul.tk/uethackathon2017/scoreboard.jpg)
-![setting](http://www.mrsul.tk/uethackathon2017/scoreboard.jpg)
-![top10](http://www.mrsul.tk/uethackathon2017/top10.jpg)
-
+<img src="http://www.mrsul.tk/uethackathon2017/menu.jpg" width="360" height="640">
+<img src="http://www.mrsul.tk/uethackathon2017/packs.jpg" width="360" height="640">
+<img src="http://www.mrsul.tk/uethackathon2017/play1.jpg" width="360" height="640">
+<img src="http://www.mrsul.tk/uethackathon2017/play2.jpg" width="360" height="640">
+<img src="http://www.mrsul.tk/uethackathon2017/scoreboard.jpg" width="360" height="640">
+<img src="http://www.mrsul.tk/uethackathon2017/setting.jpg" width="360" height="640">
+<img src="http://www.mrsul.tk/uethackathon2017/top10.jpg" width="360" height="640">
 
 ## Info
 Team LAQ
