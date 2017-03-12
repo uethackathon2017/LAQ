@@ -319,7 +319,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                 if (progrssBarStatus > 0 && stopProgressBar == false) {
                     progrssBarStatus = progrssBarStatus - 1;// -2
                     progressBar.setProgress(progrssBarStatus);
-                    timerHandler.postDelayed(this, 50);
+                    timerHandler.postDelayed(this, 30);
                 }
 
                 if (progrssBarStatus == 0) {
@@ -637,8 +637,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnTouchListe
                     }
                     if(countWrong==2){
                         endGame();
-                        textToSpeech.setLanguage(Locale.UK);
-                        textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        if(sound==true) {
+                            textToSpeech.setLanguage(Locale.UK);
+                            textToSpeech.speak(playBigText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                     else{
                         if(sound==true) {
