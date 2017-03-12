@@ -18,5 +18,5 @@
 <img src="http://www.mrsul.tk/uethackathon2017/top10.jpg" width="360" height="640">
 
 ## Info
-Team LAQ
+Team LAQ <br>
 Le Anh Quan - laq3096@gmail.com
