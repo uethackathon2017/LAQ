@@ -5,7 +5,7 @@
 
 * Contest UET Hackathon Open 2017
 
-* Description: Simple game to learn vocabulary fast, easy and fun.
+* Description: Simple game to learn vocabulary fast, easy and fun. Good app for kids.
 
 ## Screenshot
 <img src="http://www.mrsul.tk/uethackathon2017/menu.jpg" width="360" height="640">
